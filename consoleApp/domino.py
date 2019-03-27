@@ -21,7 +21,3 @@ class Domino(list):
     def nb_point(self):
         '''this fucntion return the nuber off point of the domino value directly sum of num1 and num2'''
         return sum(self)
-
-if __name__ == "__main__":
-    d1 = Domino(1,1)
-    print(d1.nb_point())
