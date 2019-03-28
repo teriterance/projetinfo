@@ -2,7 +2,7 @@ from random import randint
 from domino import *
 
 class Talon(list):
-    def __init__(size_max = 28):
+    def __init__(self, size_max = 28):
         self.__size = size_max
         typedejeu = 7   # on peut decider de metttre un jeux, 7 pour un double six, 
                         #10 pour un double neuf
