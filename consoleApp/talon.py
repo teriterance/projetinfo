@@ -19,14 +19,8 @@ class Talon(list):
     def size(self, size_t):
         self.__size = size_t
 
-#    def append(self, domino):
-#        '''redefinition de la fonction d'ajout pour ajouter un  ellement dans notre main'''
-#        super().append(domino)
-#        self.size = self.size + 1
-#        return domino
-
-    def remove(self, domino):
-        '''utilisation de la fonction remove pour retirer un element de la main'''
+    def pioche(self, domino):
+        '''utilisation de la fonction remove pour retirer un element du talon'''
         if self.size >= 0:
             self.size = self.size - 1
             return self.pop(0)

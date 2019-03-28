@@ -4,20 +4,30 @@ import math
 class Domino(list):
     
     def __init__(self, num1, num2, color = 0):
-        '''initialazation of domino like two linked values of number,
-        after we will introduce the concept of color'''
+        '''initialisation du domino comme deux valeurs lie,
+        plutard nous introduirons le concepte de couleur'''
         if (num1 <= 6 and num1>= 0) and (num2 >= 0 and num2 <= 6):
             self.append(num1)
             self.append(num2)
         else:
-            print("the value must be betwen 0 and 6")
-        self.__Color = color #give a default value 0  to color
+            print("les valeur doivent etre entre 0 et 6")
+        self.__Color = color #donne les valeur par defaut de la couleur a 0
+
+    @property
+    def color(self):
+        '''le getter de color'''
+        return self.__Color
+    
+    @color.setter
+    def color(self, color):
+        '''le setter de color'''
+        self.__Color = color
 
     @property
     def get_Value(self):
-        ''' this function allow to get the values of different domino'''
+        ''' cette fonction permet d'atribuer les valeur des parties du domino'''
         return self
     
     def nb_point(self):
-        '''this fucntion return the nuber off point of the domino value directly sum of num1 and num2'''
+        '''cette fonction retourne le nombre de point du domino utile pour l'IA''
         return sum(self)

@@ -1,4 +1,4 @@
-from mainJoueur import *
+
 
 class TerrainJeux(list):
 

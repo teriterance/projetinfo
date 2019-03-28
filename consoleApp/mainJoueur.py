@@ -1,31 +1,33 @@
-from domino import *
+from domino import Domino
 
 class MainJoueur(list):
     def __init__(self,joueur):
         ''' '''
         self.__Joueur = joueur
-        self.__size = 0
+        self.__taille = 0
         super().__init__()
 
     @property
-    def size(self):
-        return self.__size
+    def taille(self):
+        '''utilise pour connaitre la taille de la main du joueur'''
+        return self.__taille
     
-    @size.setter
-    def size(self, size_t):
-        self.__size = size_t
+    @taille.setter
+    def taille(self, taille):
+        '''On reste un peut dubitatif quant a l'usage de cette fonction'''
+        self.__taille = taille
 
-    def append(self, domino):
-        '''redefinition de la fonction d'ajout pour ajouter un nouvell ellement dans notre main'''
+    def ajouter(self, domino):
+        '''redefinition de la fonction d'ajout pour ajouter un nouvel ellement dans notre main'''
         super().append(domino)
-        self.size = self.size + 1
+        self.taille = self.taille + 1
         return domino
     
     def retirer(self, domino):
         '''utilisation de la fonction remove pour retirer un element de la main'''
-        if self.size >= 0:
-            self.remove(domino)
-        return domino
+        if self.taille >= 0:
+            return self.remove(domino)
+        return False
     
     def get_point(self):
         '''compte tous les point de la main, important pour la fonction d'evaluation du minimax'''
