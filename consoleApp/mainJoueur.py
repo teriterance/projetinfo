@@ -11,11 +11,6 @@ class MainJoueur(list):
     def taille(self):
         '''utilise pour connaitre la taille de la main du joueur'''
         return self.__taille
-    
-    @taille.setter
-    def taille(self, taille):
-        '''On reste un peut dubitatif quant a l'usage de cette fonction'''
-        self.__taille = taille
 
     def ajouter(self, domino):
         '''redefinition de la fonction d'ajout pour ajouter un nouvel ellement dans notre main'''
@@ -28,7 +23,27 @@ class MainJoueur(list):
         if self.taille >= 0:
             return self.remove(domino)
         return False
-    
+
+    def doublefort(self):
+        '''retourne le domino le plus fort si il exite et false si non'''
+        for domino in self:
+            if not domino.isdouble():
+                return False
+            else:
+                return domino.isdouble()
+
+    def dominofort(self):
+        '''retourne le domino le plus fort si il exite et false si non
+        elle doit etre utilise en lieu et place de la fonction double max si elle retrourne false'''
+        maxval = 0
+        dominomax = 0
+        for domino in self:
+            x = domino.get_point()
+                if maxval < x:
+                    dominomax = domino
+                    maxval = x
+        return dominomax
+
     def get_point(self):
         '''compte tous les point de la main, important pour la fonction d'evaluation du minimax'''
         tmp = 0

@@ -6,8 +6,16 @@ class Joueur():
     def __init__(self, numero):
         '''initialisation du joueur, son numero et sa main'''
         self.__numero = numero #identifiant du joueur 
-        self.__main   = MainJoueur(self.numero)
+        self.__mainj  = MainJoueur(self.numero)
     
+    def doublefort(self):
+        '''renvoi le double le plus fort dela main'''
+        return self.__mainj.doublefort()
+
+    def dominofort(self):
+         '''kdvalbvdlknda'''
+         return self.__mainj.dominofort()
+
     @property
     def numero(self):
         return self.__numero
@@ -18,7 +26,7 @@ class Joueur():
         print("entrez votre domino a jouer")
         val1, val2 = input()#recuperation des valeurs du domino a jouer
         #on va ajouter le teste de sa presence dans la main 
-        self.__main.retirer(Domino(val1, val2))#on le suprime de la main
+        self.__mainj.retirer(Domino(val1, val2))#on le suprime de la main
         print("entrez les coordonees x et y du domino")
         x = input()#on lit les coordonee x
         y = input()#on lit les coordonee y
@@ -33,4 +41,4 @@ class Joueur():
     
     def __str__(self):
         '''On affiche le joueur, juste sa main et son numero'''
-        return numero.__str__()+" "+ self.main.__str__()
+        return numero.__str__()+" "+ self.mainj.__str__()

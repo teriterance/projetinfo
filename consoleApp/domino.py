@@ -29,5 +29,5 @@ class Domino(list):
         return self
     
     def nb_point(self):
-        '''cette fonction retourne le nombre de point du domino utile pour l'IA''
+        '''cette fonction retourne le nombre de point du domino utile pour l'IA'''
         return sum(self)
