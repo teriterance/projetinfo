@@ -24,15 +24,12 @@ class JoueurAI(Joueur):
         '''cette fonction retourne une evaluation ninimale du de la valeur Min'''
         if prof == 0 :
             return eval(etat_jeux)
-        
         min_val = math.inf
-        
         tailleTerain = 56 ## a modifier 
         for i in range(tailleTerain):
             for j in range(tailleTerain):
                 self.simuller(x,y)
                 val = Max(eta,prof-1)
-
                 if val <min_val:
                     min_val = val
         return min_val
@@ -56,7 +53,7 @@ class JoueurAI(Joueur):
         return min_val 
     
     def eval(self):
-        pass
+        pass 
 
     def simuller(self):
         pass

@@ -1,6 +1,4 @@
-from domino import Domino
 from mainJoueur import MainJoueur
-from talon import Talon
 
 class Joueur():
     def __init__(self, numero):
@@ -32,11 +30,11 @@ class Joueur():
         y = input()#on lit les coordonee y
         print("entrez son orientation 0, 90, 180, 270")
         orientation = input()#on lit l'orientation 
-        return [x,y,orientation]
+        return x,y,orientation
 
     def piocher(self, talon):
         "Permet de faire une pioche"
-        self.main.append(talon.pioche())
+        self.mainj.append(talon.pioche())
         return talon
     
     def __str__(self):
