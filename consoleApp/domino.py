@@ -31,3 +31,10 @@ class Domino(list):
     def nb_point(self):
         '''cette fonction retourne le nombre de point du domino utile pour l'IA'''
         return sum(self)
+
+    def isdouble(self):
+        '''retourne la valeur du double si le domino est un double '''
+        if self[0] == self[1]:
+            return self[0]
+        else 
+            return False
