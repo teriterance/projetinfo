@@ -36,5 +36,5 @@ class Domino(list):
         '''retourne la valeur du double si le domino est un double '''
         if self[0] == self[1]:
             return self[0]
-        else 
+        else: 
             return False

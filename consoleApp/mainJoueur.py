@@ -39,9 +39,9 @@ class MainJoueur(list):
         dominomax = 0
         for domino in self:
             x = domino.get_point()
-                if maxval < x:
-                    dominomax = domino
-                    maxval = x
+            if maxval < x:
+                dominomax = domino
+                maxval = x
         return dominomax
 
     def get_point(self):

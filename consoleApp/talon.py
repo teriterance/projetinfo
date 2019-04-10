@@ -19,7 +19,7 @@ class Talon(list):
     def size(self, size_t):
         self.__size = size_t
 
-    def pioche(self, domino):
+    def pioche(self):
         '''utilisation de la fonction remove pour retirer un element du talon'''
         if self.size >= 0:
             self.size = self.size - 1

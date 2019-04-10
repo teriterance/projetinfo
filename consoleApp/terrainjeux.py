@@ -23,22 +23,22 @@ class TerrainJeux(list):
         '''on cherche si il y a un nombre au voisinage de la partie 1 du domino en fonction de l'orientation'''
         t = False
         if orientation == 0 :
-            if self[x][y-1] = domino[0] or self[x][y+1] = domino[0] or self[x-1][y] = domino[0]:
+            if self[x][y-1] == domino[0] or self[x][y+1] == domino[0] or self[x-1][y] == domino[0]:
                 t = True
                 self[x][y] = domino[0]
                 self[x + 1][y] = domino[1]
         elif orientation == 180 :
-            if self[x][y-1] = domino[0] or self[x][y+1] = domino[0] or self[x+1][y] = domino[0]:
+            if self[x][y-1] == domino[0] or self[x][y+1] == domino[0] or self[x+1][y] == domino[0]:
                 t = True
                 self[x][y] = domino[0]
                 self[x + 1][y] = domino[1]
         elif orientation == 90 :
-            if self[x-1][y] = domino[0] or self[x+1][y] = domino[0] or self[x][y-1] = domino[0]:
+            if self[x-1][y] == domino[0] or self[x+1][y] == domino[0] or self[x][y-1] == domino[0]:
                 t = True
                 self[x][y] = domino[0]
                 self[x + 1][y] = domino[1]
         elif orientation == 270 :
-            if self[x-1][y] = domino[0] or self[x+1][y] = domino[0] or self[x][y+1] = domino[0]:
+            if self[x-1][y] == domino[0] or self[x+1][y] == domino[0] or self[x][y+1] == domino[0]:
                 t = True
                 self[x][y] = domino[0]
                 self[x + 1][y] = domino[1]
@@ -46,22 +46,22 @@ class TerrainJeux(list):
         '''on cherche si il y a un nombre au voisinage de la partie 2 du domino en fonction de l'orientation'''
         if t == False:
             if orientation == 0 :
-                if self[x+1][y-1] = domino[1] or self[x+1][y+1] = domino[1] or self[x+2][y] = domino[1]:
+                if self[x+1][y-1] == domino[1] or self[x+1][y+1] == domino[1] or self[x+2][y] == domino[1]:
                     t = True
                     self[x][y] = domino[0]
                     self[x + 1][y] = domino[1]
             elif orientation == 180 :
-                if self[x-1][y-1] = domino[1] or self[x-1][y+1] = domino[1] or self[x-2][y] = domino[1]:
+                if self[x-1][y-1] == domino[1] or self[x-1][y+1] == domino[1] or self[x-2][y] == domino[1]:
                     t = True
                     self[x][y] = domino[0]
                     self[x + 1][y] = domino[1]
             elif orientation == 90 :
-                if self[x-1][y+1] = domino[1] or self[x+1][y+1] = domino[1] or self[x][y+2] = domino[1]:
+                if self[x-1][y+1] == domino[1] or self[x+1][y+1] == domino[1] or self[x][y+2] == domino[1]:
                     t = True
                     self[x][y] = domino[0]
                     self[x + 1][y] = domino[1]
             elif orientation == 270 :
-                if self[x-1][y-1] = domino[1] or self[x+1][y-1] = domino[1] or self[x][y-2] = domino[1]:
+                if self[x-1][y-1] == domino[1] or self[x+1][y-1] == domino[1] or self[x][y-2] == domino[1]:
                     t = True
                     self[x][y] = domino[0]
                     self[x + 1][y] = domino[1]
