@@ -26,11 +26,12 @@ class MainJoueur(list):
 
     def doublefort(self):
         '''retourne le domino le plus fort si il exite et false si non'''
+        doublemax = [0,0]
         for domino in self:
-            if not domino.isdouble():
-                return False
-            else:
-                return domino.isdouble()
+            if  domino.isdouble() and sum(domino) > sum(doublemax):
+               doublemax = domino 
+        return doublemax
+            
 
     def dominofort(self):
         '''retourne le domino le plus fort si il exite et false si non
@@ -38,7 +39,7 @@ class MainJoueur(list):
         maxval = 0
         dominomax = 0
         for domino in self:
-            x = domino.get_point()
+            x = domino.nb_point()
             if maxval < x:
                 dominomax = domino
                 maxval = x

@@ -13,7 +13,10 @@ class Joueur():
     def dominofort(self):
          '''kdvalbvdlknda'''
          return self.__mainj.dominofort()
-
+    @property
+    def mainj(self):
+        return self.__mainj
+    
     @property
     def numero(self):
         return self.__numero

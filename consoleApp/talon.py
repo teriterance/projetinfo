@@ -25,11 +25,11 @@ class Talon(list):
             self.size = self.size - 1
             return self.pop(0)
 
-    def mix(self, Domino):
+    def mix(self):
         '''utilisation pour melanger'''
         for i in range(self.size):
-            tmp = randint(0,self.size) #ongenere un  nombre aleatroire entre 0 et la taille
+            tmp = randint(0,self.size-1) #ongenere un  nombre aleatroire entre 0 et la taille et on echange les positions
             tmpDomino = self[tmp]
-            self[tmp] = self[i].copy()
-            self[i] = tmpDomino.copy()
+            self[tmp] = self[i]
+            self[i] = tmpDomino
 
