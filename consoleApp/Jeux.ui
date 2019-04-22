@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FunDomino</class>
+ <widget class="QMainWindow" name="FunDomino">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>754</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(fond.jpg);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="terain" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>10</y>
+      <width>751</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="terrainJeu" native="true">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>100</y>
+       <width>531</width>
+       <height>341</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QWidget" name="joueur3" native="true">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>81</width>
+       <height>341</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QWidget" name="joueur1" native="true">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>10</y>
+       <width>531</width>
+       <height>80</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QWidget" name="joueur4" native="true">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>100</y>
+       <width>81</width>
+       <height>341</height>
+      </rect>
+     </property>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>81</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="joueur2" native="true">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>450</y>
+       <width>531</width>
+       <height>80</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>754</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuJeux">
+    <property name="title">
+     <string>Jeux</string>
+    </property>
+    <addaction name="actionNouveau"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuiter"/>
+   </widget>
+   <widget class="QMenu" name="menuA_Propos">
+    <property name="title">
+     <string>Edition </string>
+    </property>
+    <addaction name="actionA_bout_us"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout_Us">
+    <property name="title">
+     <string>About Us</string>
+    </property>
+    <addaction name="actionAbout_Us"/>
+   </widget>
+   <addaction name="menuJeux"/>
+   <addaction name="menuA_Propos"/>
+   <addaction name="menuAbout_Us"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionNouveau">
+   <property name="text">
+    <string>Nouveau</string>
+   </property>
+  </action>
+  <action name="actionQuiter">
+   <property name="text">
+    <string>Quiter</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionA_bout_us">
+   <property name="text">
+    <string>Couleur </string>
+   </property>
+  </action>
+  <action name="actionAbout_Us">
+   <property name="text">
+    <string>About Us</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionQuiter</sender>
+   <signal>triggered()</signal>
+   <receiver>FunDomino</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
