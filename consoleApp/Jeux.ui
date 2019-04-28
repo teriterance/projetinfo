@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>754</width>
+    <width>742</width>
     <height>600</height>
    </rect>
   </property>
@@ -29,67 +29,40 @@
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <widget class="QWidget" name="terrainJeu" native="true">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>100</y>
-       <width>531</width>
-       <height>341</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QWidget" name="joueur3" native="true">
-     <property name="geometry">
-      <rect>
        <x>10</x>
-       <y>100</y>
-       <width>81</width>
-       <height>341</height>
+       <y>0</y>
+       <width>731</width>
+       <height>391</height>
       </rect>
      </property>
     </widget>
     <widget class="QWidget" name="joueur1" native="true">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>10</y>
+       <x>120</x>
+       <y>460</y>
        <width>531</width>
        <height>80</height>
       </rect>
      </property>
     </widget>
-    <widget class="QWidget" name="joueur4" native="true">
+    <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>640</x>
-       <y>100</y>
-       <width>81</width>
-       <height>341</height>
+       <x>276</x>
+       <y>410</y>
+       <width>161</width>
+       <height>41</height>
       </rect>
      </property>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>81</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="joueur2" native="true">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>450</y>
-       <width>531</width>
-       <height>80</height>
-      </rect>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
@@ -99,7 +72,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>754</width>
+     <width>742</width>
      <height>22</height>
     </rect>
    </property>
@@ -111,20 +84,22 @@
     <addaction name="separator"/>
     <addaction name="actionQuiter"/>
    </widget>
-   <widget class="QMenu" name="menuA_Propos">
+   <widget class="QMenu" name="menuEdition">
     <property name="title">
      <string>Edition </string>
     </property>
-    <addaction name="actionA_bout_us"/>
+    <addaction name="actionCouleur"/>
    </widget>
    <widget class="QMenu" name="menuAbout_Us">
     <property name="title">
      <string>About Us</string>
     </property>
     <addaction name="actionAbout_Us"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout_Qt"/>
    </widget>
    <addaction name="menuJeux"/>
-   <addaction name="menuA_Propos"/>
+   <addaction name="menuEdition"/>
    <addaction name="menuAbout_Us"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -141,7 +116,7 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
-  <action name="actionA_bout_us">
+  <action name="actionCouleur">
    <property name="text">
     <string>Couleur </string>
    </property>
@@ -149,6 +124,11 @@
   <action name="actionAbout_Us">
    <property name="text">
     <string>About Us</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
    </property>
   </action>
  </widget>

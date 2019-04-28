@@ -17,6 +17,11 @@ class TerrainJeux(list):
         for i in range(self.taille):
             self_str  = self_str+"\n"+self[i].__str__()
         return self_str
+
+    def placer1(self,domino):
+        """objectif , placer le premier domino au centre dans une direction fixe"""
+        self[14][14] = domino[0]
+        self[15][14] = domino[1]
     
     def placer(self, x, y, domino, orientation):
         '''cette fonction retourne si on peut placer le domino en une position sur le terrain si oui elle le place'''

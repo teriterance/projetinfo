@@ -20,7 +20,8 @@ class MainJoueur(list):
     
     def retirer(self, domino):
         '''utilisation de la fonction remove pour retirer un element de la main'''
-        if self.taille >= 0:
+        if self.__taille >= 0:
+            self.__taille = self.__taille - 1
             return self.remove(domino)
         return False
 

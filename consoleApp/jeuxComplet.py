@@ -13,6 +13,7 @@ class Jeux:
         self.listeJoueur = [Joueur(i) for i in range(self.nombreJoueur)]
         self.talon = Talon()
         self.talon.mix()
+        self.__joueurActuel =0
 
     def distribution(self):
         "cette fonction fait la distribution des dominos aux joueurs"
@@ -30,9 +31,9 @@ class Jeux:
         # en meme temp celui qui a la main la plus forte  
         print("debut recherche premier joueur")
         maxdouble =  [0,0]
-        maxDoubleJoueur = self.nombreJoueur #initialisation du joueur hors de la liste  
+        maxdoublejoueur = 0 #initialisation du joueur hors de la liste  
         maxval = [0,0]
-        maxValJoueur = self.nombreJoueur #initialisation du joueur hors de la liste
+        maxValJoueur = 0 #initialisation du joueur hors de la liste
         #on parcour la liste des joueurs
         for i in range(self.nombreJoueur):
             doubleTmp = self.listeJoueur[i].doublefort()
@@ -43,17 +44,19 @@ class Jeux:
             if sum(valTmp) > sum(maxval):
                 maxval = valTmp
                 maxValJoueur = i
+            print(i,maxdouble, maxval,maxdoublejoueur, maxValJoueur)
         print("fin recherche premier joueur")
-        if maxdouble == 0:#si il n'y a pa de double
+        if maxdouble == [0,0]:#si il n'y a pa de double
             self.__joueurActuel = maxValJoueur
             return maxval
         else:
-            self.__joueurActuel = maxDoubleJoueur
+            self.__joueurActuel = maxdoublejoueur
             return maxdouble
 
     @property
     def joueurActuel(self):
         return self.__joueurActuel
+    
     def joeursuivant(self):
         "permet de passer au joueur suivant sans faire en sorte que le parametre soit accessible a l'exterieur de la classe"
         self.__joueurActuel = (self.__joueurActuel + 1 )% self.nombreJoueur
@@ -72,9 +75,14 @@ class Jeux:
 
     def finjeux(self):
         for joueur in self.listeJoueur:
-            if len(joueur.mainj()) == 0:
+            if len(joueur.mainj) == 0:
+                self.gagnant = joueur.numero
                 return True
         return False
+
+    def jouer(self):
+        self.terrain. self.listeJoueur[self.joueurActuel].jouer()
+        self.joeursuivant()
         
 #    def unTour(self):
 #        if self.numeroTour == 1:
@@ -84,7 +92,3 @@ class Jeux:
 #        while i !=  self.joueur1:
 #            self.terrain.placer(self.listeJoueur[i].jouer())
 #            i = (i + 1)% self.nombreJoueur
-        
-
-            
-        

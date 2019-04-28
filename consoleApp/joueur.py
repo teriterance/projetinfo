@@ -5,6 +5,7 @@ class Joueur():
         '''initialisation du joueur, son numero et sa main'''
         self.__numero = numero #identifiant du joueur 
         self.__mainj  = MainJoueur(self.numero)
+        self.nomjoueur = ''
     
     def doublefort(self):
         '''renvoi le double le plus fort dela main'''
@@ -21,7 +22,7 @@ class Joueur():
     def numero(self):
         return self.__numero
 
-    def jouer(self):
+    def jouer1(self):
         '''Fonction de jeux dans le terrain'''
         x, y, orientation = 0, 0, 0 #la position du domino dans le terrain et son orientation( valeurs comprises dans 0, 90, 180, 270)
         print("entrez votre domino a jouer")
@@ -34,6 +35,12 @@ class Joueur():
         print("entrez son orientation 0, 90, 180, 270")
         orientation = input()#on lit l'orientation 
         return x,y,orientation
+
+    def jouer(self, domino):
+        if self.mainj.retirer(domino) != False:
+            return True
+        else:
+            return False
 
     def piocher(self, talon):
         "Permet de faire une pioche"

@@ -32,4 +32,3 @@ class Talon(list):
             tmpDomino = self[tmp]
             self[tmp] = self[i]
             self[i] = tmpDomino
-
