@@ -1,73 +1,84 @@
 import numpy as np
+import math
 from domino import Domino
 
 class TerrainJeux(list):
     #tableau de taille 52*52
     def __init__(self):
         '''fonciton d'initialisation'''
-        self.taille = 52
+        self.taille = 16
         for i in range(self.taille):
             self.append([])
             for j in range(self.taille):
                 self[i].append('.')
         self.dernierepos = None ## vas etre utile pour jouer la version avancee
         self.tableaucouleur = [[]] ## on definit un tableau de couleur
+        self.boutChaine = [math.ceil(self.taille/2), math.ceil(self.taille/2)]
+        self.domcol = 0.5
+        self.premier = True
+        self.orient = 111.5
     def __str__(self):
         self_str = ""
         for i in range(self.taille):
             self_str  = self_str+"\n"+self[i].__str__()
         return self_str
-
-    def placer1(self,domino):
-        """objectif , placer le premier domino au centre dans une direction fixe"""
-        self[14][14] = domino[0]
-        self[15][14] = domino[1]
     
-    def placer(self, x, y, domino, orientation):
-        '''cette fonction retourne si on peut placer le domino en une position sur le terrain si oui elle le place'''
-        '''on cherche si il y a un nombre au voisinage de la partie 1 du domino en fonction de l'orientation'''
-        t = False
-        if orientation == 0 :
-            if self[x][y-1] == domino[0] or self[x][y+1] == domino[0] or self[x-1][y] == domino[0]:
-                t = True
-                self[x][y] = domino[0]
-                self[x + 1][y] = domino[1]
-        elif orientation == 180 :
-            if self[x][y-1] == domino[0] or self[x][y+1] == domino[0] or self[x+1][y] == domino[0]:
-                t = True
-                self[x][y] = domino[0]
-                self[x + 1][y] = domino[1]
-        elif orientation == 90 :
-            if self[x-1][y] == domino[0] or self[x+1][y] == domino[0] or self[x][y-1] == domino[0]:
-                t = True
-                self[x][y] = domino[0]
-                self[x + 1][y] = domino[1]
-        elif orientation == 270 :
-            if self[x-1][y] == domino[0] or self[x+1][y] == domino[0] or self[x][y+1] == domino[0]:
-                t = True
-                self[x][y] = domino[0]
-                self[x + 1][y] = domino[1]
-        
-        '''on cherche si il y a un nombre au voisinage de la partie 2 du domino en fonction de l'orientation'''
-        if t == False:
-            if orientation == 0 :
-                if self[x+1][y-1] == domino[1] or self[x+1][y+1] == domino[1] or self[x+2][y] == domino[1]:
-                    t = True
-                    self[x][y] = domino[0]
-                    self[x + 1][y] = domino[1]
-            elif orientation == 180 :
-                if self[x-1][y-1] == domino[1] or self[x-1][y+1] == domino[1] or self[x-2][y] == domino[1]:
-                    t = True
-                    self[x][y] = domino[0]
-                    self[x + 1][y] = domino[1]
-            elif orientation == 90 :
-                if self[x-1][y+1] == domino[1] or self[x+1][y+1] == domino[1] or self[x][y+2] == domino[1]:
-                    t = True
-                    self[x][y] = domino[0]
-                    self[x + 1][y] = domino[1]
-            elif orientation == 270 :
-                if self[x-1][y-1] == domino[1] or self[x+1][y-1] == domino[1] or self[x][y-2] == domino[1]:
-                    t = True
-                    self[x][y] = domino[0]
-                    self[x + 1][y] = domino[1]
+    def retourner(self,domino):
+        return Domino(domino[1], domino[0])
+            
+    def placer(self, domino, orientation, dep =0):
+        """objectif , placer le premier domino au centre dans une direction fixe"""
+        if self.boutChaine[0] < self.taille and self.boutChaine[1] < self.taille and self.boutChaine[0] > 0 and self.boutChaine[1] > 0 and self.domcol == domino[0] or self.premier:
+            self[self.boutChaine[0]][self.boutChaine[1]] = domino[0]
+            print(self.domcol, domino[0], self.premier)
+            self.premier = False
+        else:
+            if dep <1:#eviter la recursion
+                return self.placer(self.retourner(domino), orientation, 2)
+            else:
+                return False
+
+        orientation = int(orientation)
+        if orientation == 0 and self.orient != 180:
+            if self.boutChaine[1] +1 < self.taille:
+                self[self.boutChaine[0]][self.boutChaine[1] + 1] =  domino[1]
+                self.boutChaine = [self.boutChaine[0], self.boutChaine[1] + 2]
+                self.domcol = domino[1]
+        elif orientation == 90 and self.orient != 270:
+            if self.boutChaine[1] -2 >= 0:
+                self[self.boutChaine[0] - 1][self.boutChaine[1]] =  domino[1]
+                self.boutChaine = [self.boutChaine[0] -2, self.boutChaine[1]]
+                self.domcol = domino[1]
+        elif orientation == 180 and self.orient != 0:
+            if self.boutChaine[1]  -1 < self.taille:
+                self[self.boutChaine[0]][self.boutChaine[1] -1] =  domino[1]
+                self.boutChaine = [self.boutChaine[0], self.boutChaine[1] - 2]
+                self.domcol = domino[1]
+        elif orientation == 270 and self.orient != 90:
+            if self.boutChaine[0] + 1 < self.taille:
+                self[self.boutChaine[0] + 1][self.boutChaine[1]] =  domino[1]
+                self.boutChaine = [self.boutChaine[0] + 2, self.boutChaine[1]]
+                self.domcol = domino[1]
+        else:
+            return False
+
+    def __str__(self):
+        t  = ""
+        for i in range(self.taille + 4):
+            t = t + "*"
+        t = t+ "\n"
+        for i in range(self.taille):
+            t = t+ "/*"
+            for j in range(self.taille):
+                t = t +"'"+str(self[i][j])+"'"
+            t = t + "*/" + "\n"
+        for i in range(self.taille + 4):
+            t = t + "*"
         return t
+
+if __name__ == "__main__":
+    d  = Domino(5,6)
+    t = TerrainJeux()
+    t.placer(d,270)
+    t.placer(d,0)
+    print(t)

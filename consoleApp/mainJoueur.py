@@ -6,6 +6,7 @@ class MainJoueur(list):
         self.__Joueur = joueur
         self.__taille = 0
         super().__init__()
+        print(self)
 
     @property
     def taille(self):
@@ -15,8 +16,7 @@ class MainJoueur(list):
     def ajouter(self, domino):
         '''redefinition de la fonction d'ajout pour ajouter un nouvel ellement dans notre main'''
         super().append(domino)
-        self.taille = self.taille + 1
-        return domino
+        self.__taille = self.__taille + 1
     
     def retirer(self, domino):
         '''utilisation de la fonction remove pour retirer un element de la main'''
@@ -31,6 +31,7 @@ class MainJoueur(list):
         for domino in self:
             if  domino.isdouble() and sum(domino) > sum(doublemax):
                doublemax = domino 
+        print(doublemax, "double fort")
         return doublemax
             
 
@@ -52,3 +53,9 @@ class MainJoueur(list):
         for domino in self:
             tmp = domino.nb_point() + tmp
         return tmp
+
+    def __str__(self):
+        t = ""
+        for i in self:
+            t = t + str(i)
+        return t 

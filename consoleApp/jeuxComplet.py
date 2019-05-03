@@ -10,7 +10,7 @@ class Jeux:
         self.numeroTour = 1
         self.nombreJoueur = nbj
         self.terrain = TerrainJeux()
-        self.listeJoueur = [Joueur(i) for i in range(self.nombreJoueur)]
+        self.listeJoueur = [Joueur(i, input("entrez le nom du joueur "+str(i)+" ")) for i in range(self.nombreJoueur)]
         self.talon = Talon()
         self.talon.mix()
         self.__joueurActuel =0
@@ -22,7 +22,7 @@ class Jeux:
         print("debut distribution")
         for i in range(self.nombreJoueur):
             for j in range(7):
-                self.talon = self.listeJoueur[i].piocher(self.talon)
+                print(self.listeJoueur[i].piocher(self.talon))
         print("fin distribution")
     
     def premierJoueur(self):
@@ -57,7 +57,7 @@ class Jeux:
     def joueurActuel(self):
         return self.__joueurActuel
     
-    def joeursuivant(self):
+    def joueursuivant(self):
         "permet de passer au joueur suivant sans faire en sorte que le parametre soit accessible a l'exterieur de la classe"
         self.__joueurActuel = (self.__joueurActuel + 1 )% self.nombreJoueur
 
@@ -82,13 +82,32 @@ class Jeux:
 
     def jouer(self):
         self.terrain. self.listeJoueur[self.joueurActuel].jouer()
-        self.joeursuivant()
+        self.joueursuivant()
         
-#    def unTour(self):
-#        if self.numeroTour == 1:
-#            self.joueur1 =  self.premierJoueur()
-#        i = self.joeur1 + 1
-#        i = i % self.nombreJoueur
-#        while i !=  self.joueur1:
-#            self.terrain.placer(self.listeJoueur[i].jouer())
-#            i = (i + 1)% self.nombreJoueur
+    def partie(self):
+        print(self.talon)
+        print(self.terrain)
+        self.distribution()
+        prenierDom = self.premierJoueur()
+        self.listeJoueur[self.joueurActuel].jouer(prenierDom)
+        print(str(self.joueurActuel))
+        orientation = input("entrez lorientation du premier domino")
+        t = self.terrain.placer(prenierDom,orientation)
+        print(self.terrain)
+        self.joueursuivant()
+
+        while self.finjeux() == False:
+            for i in range(self.nombreJoueur):
+                print(self.listeJoueur[self.joueurActuel])
+                dominojouer,orientation = self.listeJoueur[self.joueurActuel].jouer1()
+                if dominojouer in self.listeJoueur[self.joueurActuel].mainj:
+                    self.listeJoueur[self.joueurActuel].jouer(dominojouer)
+                    self.terrain.placer(dominojouer, orientation)
+                else:
+                    self.listeJoueur[self.joueurActuel].piocher(self.talon)
+                self.joueursuivant()
+                print(self.terrain)
+
+if __name__ == "__main__":
+    jeu = Jeux(2)
+    jeu.partie()

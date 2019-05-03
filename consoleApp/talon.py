@@ -32,3 +32,9 @@ class Talon(list):
             tmpDomino = self[tmp]
             self[tmp] = self[i]
             self[i] = tmpDomino
+    
+    def __str__(self):
+        if self.__size >0 :
+            return "x x"
+        else:
+            return "vide"

@@ -46,12 +46,16 @@ class jeuxUI(QtWidgets.QMainWindow):
         #debut de cinematique
 
         #fin de cinematique
-        self.chargementmain()
+        self.jeux.joeursuivant()
+        print("salut ")
+
         self.changeJoueurnom()
+
             
         dominopremier = self.jeux.premierJoueur()
+        self.chargementmain()
         self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(dominopremier)
-        self.jeux.terrain.placer1(dominopremier)## on place le premier domino
+        self.jeux.terrain.placer(dominopremier)## on place le premier domino
 
         while self.jeux.finjeux() == False:     
             for i in range(self.jeux.nombreJoueur):
@@ -62,7 +66,7 @@ class jeuxUI(QtWidgets.QMainWindow):
                 #mise a jour des graphisme 
 
                 #fin mise a jour
-                self.jeux.joeursuivant() # on passe au joueur suivant
+                self.jeux.joueursuivant() # on passe au joueur suivant
         #on affiche une boite de dialogue de victoire
     
     def cinematiquedebut(self):
@@ -83,20 +87,11 @@ class jeuxUI(QtWidgets.QMainWindow):
         les ajoueter dans le layout 
         ajouter le layout dans les widgets"""
         dom = QtWidgets.QVBoxLayout(self.ui.joueur1)
-        self.ui.terrainJeu.setLayout(dom)
-        print(self.jeux.joueurActuel)
-        for i in self.jeux.listeJoueur[self.jeux.joueurActuel].mainj:
-            layout = QtWidgets.QHBoxLayout()
-            print("gabin")
-            l1 = QtWidgets.QLabel()
-            pixmap = QtGui.QPixmap('Dice'+ str(i[0]) +'.png') 
-            l1.setPixmap(pixmap)
-            l2 = QtWidgets.QLabel()
-            pixmap = QtGui.QPixmap('Dice'+ str(i[0]) +'.png') 
-            l2.setPixmap(pixmap)
-            layout.addChildWidget(l1)
-            layout.addChildWidget(l2)
-            dom.addChildLayout(layout)
+        self.ui.joueur1.setLayout(dom)
+        l1 = QtWidgets.QLabel(self)
+        p = QtGui.QPixmap('Dice4.png')
+        l1.setPixmap(p)
+        self.ui.joueur1.addWidget(l1)
         
 
     def boitenombrejoueur(self):

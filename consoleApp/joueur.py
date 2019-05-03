@@ -1,11 +1,12 @@
 from mainJoueur import MainJoueur
+from domino import Domino
 
 class Joueur():
-    def __init__(self, numero):
+    def __init__(self, numero, nom):
         '''initialisation du joueur, son numero et sa main'''
         self.__numero = numero #identifiant du joueur 
         self.__mainj  = MainJoueur(self.numero)
-        self.nomjoueur = ''
+        self.nomjoueur = nom
     
     def doublefort(self):
         '''renvoi le double le plus fort dela main'''
@@ -24,17 +25,13 @@ class Joueur():
 
     def jouer1(self):
         '''Fonction de jeux dans le terrain'''
-        x, y, orientation = 0, 0, 0 #la position du domino dans le terrain et son orientation( valeurs comprises dans 0, 90, 180, 270)
-        print("entrez votre domino a jouer")
-        val1, val2 = input()#recuperation des valeurs du domino a jouer
-        #on va ajouter le teste de sa presence dans la main 
-        self.__mainj.retirer(Domino(val1, val2))#on le suprime de la main
-        print("entrez les coordonees x et y du domino")
-        x = input()#on lit les coordonee x
-        y = input()#on lit les coordonee y
-        print("entrez son orientation 0, 90, 180, 270")
-        orientation = input()#on lit l'orientation 
-        return x,y,orientation
+        print("entrez le domino a jouer, valeur 1 entrer puis valeur 2")
+        val1 = int(input())
+        val2 = int(input())
+        print("entez son orientation, 0, 90, 180, 270")
+        orientation = input() 
+        d = Domino(val1, val2)
+        return d ,orientation
 
     def jouer(self, domino):
         if self.mainj.retirer(domino) != False:
@@ -44,9 +41,9 @@ class Joueur():
 
     def piocher(self, talon):
         "Permet de faire une pioche"
-        self.mainj.append(talon.pioche())
+        self.mainj.ajouter(talon.pioche())
         return talon
     
     def __str__(self):
         '''On affiche le joueur, juste sa main et son numero'''
-        return numero.__str__()+" "+ self.mainj.__str__()
+        return str(self.numero)+" "+ self.nomjoueur.__str__()+" "+ str(self.mainj)
