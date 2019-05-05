@@ -38,3 +38,9 @@ class Domino(list):
             return self[0]
         else: 
             return False
+    
+    def cherche(self,a):
+        if self[0]== a or self[1]== a:
+            return True
+        else:
+            return False

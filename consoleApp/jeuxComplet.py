@@ -78,7 +78,15 @@ class Jeux:
             if len(joueur.mainj) == 0:
                 self.gagnant = joueur.numero
                 return True
-        return False
+        t =  True
+        for dom in self.talon:
+            if dom.cherche(self.terrain.domcol):
+                t = False     
+        for i in range(self.nombreJoueur):
+            for j in self.listeJoueur[i].mainj:
+                if dom.cherche(self.terrain.domcol):
+                    t = False 
+        return False or t 
 
     def jouer(self):
         self.terrain. self.listeJoueur[self.joueurActuel].jouer()
@@ -98,15 +106,23 @@ class Jeux:
 
         while self.finjeux() == False:
             for i in range(self.nombreJoueur):
+                a = True
                 print(self.listeJoueur[self.joueurActuel])
                 dominojouer,orientation = self.listeJoueur[self.joueurActuel].jouer1()
                 if dominojouer in self.listeJoueur[self.joueurActuel].mainj:
                     self.listeJoueur[self.joueurActuel].jouer(dominojouer)
-                    self.terrain.placer(dominojouer, orientation)
+                    a = self.terrain.placer(dominojouer, orientation) != False
+                    print(a)
                 else:
                     self.listeJoueur[self.joueurActuel].piocher(self.talon)
-                self.joueursuivant()
-                print(self.terrain)
+                if a== True:
+                    self.joueursuivant()
+                    print(self.terrain)
+                else:# on reste sur le meme joueur.
+                    i = i-1
+                    self.listeJoueur[self.joueurActuel].mainj.ajouter(dominojouer)
+                    a = True
+        print("jeux termine")
 
 if __name__ == "__main__":
     jeu = Jeux(2)
