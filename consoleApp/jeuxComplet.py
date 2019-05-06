@@ -5,12 +5,15 @@ from talon import Talon
 from terrainjeux import TerrainJeux
 
 class Jeux:
-    def __init__(self, nbj):
+    def __init__(self, nbj, t = 0):
         "cette fonction initilaise le jeu"
         self.numeroTour = 1
         self.nombreJoueur = nbj
         self.terrain = TerrainJeux()
-        self.listeJoueur = [Joueur(i, input("entrez le nom du joueur "+str(i)+" ")) for i in range(self.nombreJoueur)]
+        if t == 0:
+            self.listeJoueur = [Joueur(i, input("entrez le nom du joueur "+str(i)+" ")) for i in range(self.nombreJoueur)]
+        else:
+            self.listeJoueur = [Joueur(i) for i in range(self.nombreJoueur)]    
         self.talon = Talon()
         self.talon.mix()
         self.__joueurActuel =0

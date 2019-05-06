@@ -35,12 +35,23 @@
     <widget class="QWidget" name="terrainJeu" native="true">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>0</x>
        <y>0</y>
        <width>731</width>
        <height>391</height>
       </rect>
      </property>
+     <widget class="QWidget" name="gridLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>731</width>
+        <height>391</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout"/>
+     </widget>
     </widget>
     <widget class="QWidget" name="joueur1" native="true">
      <property name="geometry">
