@@ -6,7 +6,7 @@ class TerrainJeux(list):
     #tableau de taille 52*52
     def __init__(self):
         '''fonciton d'initialisation'''
-        self.taille = 16
+        self.taille = 19
         for i in range(self.taille):
             self.append([])
             for j in range(self.taille):
