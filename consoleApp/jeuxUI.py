@@ -15,6 +15,7 @@ class jeuxUI(QtWidgets.QMainWindow):
         self.ui.terain.setStyleSheet("background-image:url(./file.jpg); background-repeat: no-repeat;")
         self.ui.actionCouleur.triggered.connect(self.changecouleur)
         self.ui.actionNouveau.triggered.connect(self.jouer)
+        self.ui.ButtonJouer.clicked.connect(self.jeuxjoeur)
         self.font = QtGui.QFont('SansSerif', 24)
         self.ui.gridLayout.setSpacing(0)
         self.ui.label.setFont(self.font)
@@ -88,28 +89,29 @@ class jeuxUI(QtWidgets.QMainWindow):
         self.changeJoueurnom()
         orientation =  self.boiteOrientation(self.jeux.terrain.orient)
         self.jeux.terrain.placer(prenierDom,orientation)
-        self.jeux.terrain.placer(prenierDom,90)
-        self.jeux.terrain.placer(prenierDom,180)
-        self.jeux.terrain.placer(prenierDom,270)
         self.actuTerain()
         self.jeux.joueursuivant()
-
-        while self.jeux.finjeux() == False:
-            for i in range(self.jeux.nombreJoueur):
+        print(self.jeux.listeJoueur[self.jeux.joueurActuel])
+    
+    def jeuxjoeur(self):
+        if self.jeux.finjeux() == False:
+            a = True
+            dominojouer = Domino(1, 2) #on va recuperer le domino et l'orientation via une boite de dialogue 
+            orientation  = 90
+            #self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(dominojouer)
+            if dominojouer in self.jeux.listeJoueur[self.jeux.joueurActuel].mainj or True:
+                #self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(dominojouer)
+                a = self.jeux.terrain.placer(Domino(1, 2), orientation)
+            else:
+                self.jeux.listeJoueur[self.jeux.joueurActuel].piocher(self.jeux.talon)
+            print(a)
+            print(self.jeux.terrain)
+            if a != False:
+                self.actuTerain()
+                self.jeux.joueursuivant()
+            else:# on reste sur le meme joueur.
+                self.jeux.listeJoueur[self.jeux.joueurActuel].mainj.ajouter(dominojouer)
                 a = True
-                #dominojouer, orientation = #on va recuperer le domino et l'orientation via une boite de dialogue 
-                self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(dominojouer)
-                if dominojouer in self.listeJoueur[self.joueurActuel].mainj:
-                    self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(dominojouer)
-                    a = self.jeux.terrain.placer(dominojouer, orientation) != False
-                else:
-                    self.jeux.listeJoueur[self.joueurActuel].piocher(self.jeux.talon)
-                if a== True:
-                    self.jeux.joueursuivant()
-                else:# on reste sur le meme joueur.
-                    i = i-1
-                    self.jeux.listeJoueur[self.jeux.joueurActuel].mainj.ajouter(dominojouer)
-                    a = True
     
     def boitejouer(self):
         """retourne le domino que le joueur a choisi de jouer"""
