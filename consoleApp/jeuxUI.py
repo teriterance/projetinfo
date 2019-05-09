@@ -88,15 +88,15 @@ class jeuxUI(QtWidgets.QMainWindow):
         self.changeJoueurnom()
         orientation =  self.boiteOrientation(self.jeux.terrain.orient)
         self.jeux.terrain.placer(prenierDom,orientation)
+        self.jeux.terrain.placer(prenierDom,90)
+        self.jeux.terrain.placer(prenierDom,180)
+        self.jeux.terrain.placer(prenierDom,270)
         self.actuTerain()
         self.jeux.joueursuivant()
-        self.ui.update()
 
-        time.sleep(10)
         while self.jeux.finjeux() == False:
             for i in range(self.jeux.nombreJoueur):
                 a = True
-                print(self.jeux.listeJoueur[self.jeux.joueurActuel])
                 #dominojouer, orientation = #on va recuperer le domino et l'orientation via une boite de dialogue 
                 self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(dominojouer)
                 if dominojouer in self.listeJoueur[self.joueurActuel].mainj:
@@ -106,12 +106,10 @@ class jeuxUI(QtWidgets.QMainWindow):
                     self.jeux.listeJoueur[self.joueurActuel].piocher(self.jeux.talon)
                 if a== True:
                     self.jeux.joueursuivant()
-                    print(self.jeux.terrain)
                 else:# on reste sur le meme joueur.
                     i = i-1
                     self.jeux.listeJoueur[self.jeux.joueurActuel].mainj.ajouter(dominojouer)
                     a = True
-        print("jeux termine")
     
     def boitejouer(self):
         """retourne le domino que le joueur a choisi de jouer"""
@@ -119,10 +117,8 @@ class jeuxUI(QtWidgets.QMainWindow):
         return Domino(domino1, domino2), x,y, orientation
 
     def chargementmain(self):
-        """On  change l'afichage de la main
-        Creer un layout et les domminos graphiques
-        les ajoueter dans le layout 
-        ajouter le layout dans les widgets"""
+        """On  change l'afichage de la main Creer un layout et les domminos graphiques
+        les ajoueter dans le layout ajouter le layout dans les widgets"""
         dom = QtWidgets.QVBoxLayout(self.ui.joueur1)
         self.ui.joueur1.setLayout(dom)
         l1 = QtWidgets.QLabel(self)

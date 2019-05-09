@@ -22,17 +22,14 @@ class Jeux:
         "cette fonction fait la distribution des dominos aux joueurs"
         #on fait la distribution des dominos aux joueurs pour ce faire on 
         #passe dans deux boucles qui vont donner les dominos aux joueurs 
-        print("debut distribution")
         for i in range(self.nombreJoueur):
             for j in range(7):
                 print(self.listeJoueur[i].piocher(self.talon))
-        print("fin distribution")
     
     def premierJoueur(self):
         "cette fonction retourne le premier joueur et le domino qu'il dois jouer"
         #on cherche le joueur qui a le double le plus fort
         # en meme temp celui qui a la main la plus forte  
-        print("debut recherche premier joueur")
         maxdouble =  [0,0]
         maxdoublejoueur = 0 #initialisation du joueur hors de la liste  
         maxval = [0,0]
@@ -48,7 +45,6 @@ class Jeux:
                 maxval = valTmp
                 maxValJoueur = i
             print(i,maxdouble, maxval,maxdoublejoueur, maxValJoueur)
-        print("fin recherche premier joueur")
         if maxdouble == [0,0]:#si il n'y a pa de double
             self.__joueurActuel = maxValJoueur
             return maxval
@@ -96,6 +92,7 @@ class Jeux:
         self.joueursuivant()
         
     def partie(self):
+
         print(self.talon)
         print(self.terrain)
         self.distribution()
@@ -106,7 +103,6 @@ class Jeux:
         t = self.terrain.placer(prenierDom,orientation)
         print(self.terrain)
         self.joueursuivant()
-
         while self.finjeux() == False:
             for i in range(self.nombreJoueur):
                 a = True
@@ -126,6 +122,7 @@ class Jeux:
                     self.listeJoueur[self.joueurActuel].mainj.ajouter(dominojouer)
                     a = True
         print("jeux termine")
+        
 
 if __name__ == "__main__":
     jeu = Jeux(2)
