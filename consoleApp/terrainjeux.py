@@ -5,20 +5,23 @@ from domino import Domino
 class TerrainJeux(list):
     #tableau de taille 52*52
     def __init__(self):
-        '''fonciton d'initialisation'''
-        self.taille = 19
+        '''fonciton d'initialisation
+        on defini, 
+        la taille du terrain
+        '''
+        self.taille = 20
         for i in range(self.taille):
             self.append([])
             for j in range(self.taille):
                 self[i].append('.')
-        self.dernierepos = None ## vas etre utile pour jouer la version avancee
-        self.tableaucouleur = [[]] ## on definit un tableau de couleur
+        self.dernierCouleur = 4 # on defini la derniere couleur qui a ete joue a 4 qui est hors de la liste
         self.boutChaine = [math.ceil(self.taille/2), math.ceil(self.taille/2)]
         self.domcol = 0.5
         self.premier = True
         self.domsterain = []
         self.orient = 111.5
-    def __str__(self):
+
+    def str2(self):
         self_str = ""
         for i in range(self.taille):
             self_str  = self_str+"\n"+self[i].__str__()

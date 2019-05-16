@@ -3,6 +3,8 @@ from domino import *
 
 class Talon(list):
     def __init__(self, size_max = 28):
+        '''initialisation du tallon, on defini le type de jeu; aussi on peut decider de metttre un jeux, 7 pour un double six, 
+        pour un double neuf'''
         self.__size = size_max
         typedejeu = 7   # on peut decider de metttre un jeux, 7 pour un double six, 
                         #10 pour un double neuf
@@ -13,6 +15,7 @@ class Talon(list):
         
     @property
     def size(self):
+        "on retourne la taille du talon"
         return self.__size
     
     @size.setter
@@ -24,9 +27,11 @@ class Talon(list):
         if self.size >= 0:
             self.size = self.size - 1
             return self.pop(0)
+        else:
+            return False
 
     def mix(self):
-        '''utilisation pour melanger'''
+        '''utilisation pour melanger les dominos dans le tallon'''
         for i in range(self.size):
             tmp = randint(0,self.size-1) #ongenere un  nombre aleatroire entre 0 et la taille et on echange les positions
             tmpDomino = self[tmp]
@@ -34,6 +39,7 @@ class Talon(list):
             self[i] = tmpDomino
     
     def __str__(self):
+        '''renvoie une forme visuelle du talon'''
         if self.__size >0 :
             return "x x"
         else:

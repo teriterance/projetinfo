@@ -1,8 +1,10 @@
 # -*- coding: utf-8-*-
 import sys 
 import time
-from jeuxComplet import *
+from domino import Domino
+from jeuxComplet import Jeux
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
+from clikable_label import MyQLabel
 
 class jeuxUI(QtWidgets.QMainWindow):
 
@@ -15,7 +17,10 @@ class jeuxUI(QtWidgets.QMainWindow):
         self.ui.terain.setStyleSheet("background-image:url(./file.jpg); background-repeat: no-repeat;")
         self.ui.actionCouleur.triggered.connect(self.changecouleur)
         self.ui.actionNouveau.triggered.connect(self.jouer)
-        self.ui.ButtonJouer.clicked.connect(self.jeuxjoeur)
+        self.ui.ButtonJouer.clicked.connect(self.jeuxjoueur)
+        self.ui.boutoPiocher.clicked.connect(self.piocher)
+        self.ui.boutoPiocher.setVisible(False)
+        self.ui.ButtonJouer.setVisible(False)
         self.font = QtGui.QFont('SansSerif', 24)
         self.ui.gridLayout.setSpacing(0)
         self.ui.label.setFont(self.font)
@@ -51,12 +56,12 @@ class jeuxUI(QtWidgets.QMainWindow):
                 t = self.jeux.terrain[i][j]
                 if t !='.':
                     if  int(t)<=6 and int(t) >=0:
-                        l1 = QtWidgets.QLabel(self)
+                        l1 = MyQLabel(self)
                         p = QtGui.QPixmap('dice'+str(self.jeux.terrain[i][j])+'.png')
                         l1.setPixmap(p)
                         self.ui.gridLayout.addWidget(l1,i,j)
                 else:
-                        l1 = QtWidgets.QLabel(self)
+                        l1 = MyQLabel(self)
                         p = QtGui.QPixmap('dice.png')
                         l1.setPixmap(p)
                         self.ui.gridLayout.addWidget(l1,i,j)
@@ -68,7 +73,12 @@ class jeuxUI(QtWidgets.QMainWindow):
     def actuMain(self):
         '''cette fonction permet de faire une actualisation de la main'''
         pass
-
+    
+    def viderLayout_main(self):
+        for i in range(self.jeux.terrain.taille):
+            for j in range(self.jeux.terrain.taille):
+                if self.ui.gridLayout_main.itemAtPosition(i,j):
+                    self.ui.gridLayout_main.itemAtPosition(i,j).widget().deleteLater()
 
     def jouer(self):
         '''cette fonction definie le mode de fonctionnement du jeu, de son initialisation da la fin'''
@@ -80,7 +90,10 @@ class jeuxUI(QtWidgets.QMainWindow):
         self.partie()
 
     def partie(self):
+        self.ui.ButtonJouer.setVisible(True)
+        self.ui.boutoPiocher.setVisible(True)
         self.jeux.distribution()
+        self.chargementmain()
         #introduire une cinematique 
 
         #fin de la cinematique
@@ -89,11 +102,14 @@ class jeuxUI(QtWidgets.QMainWindow):
         self.changeJoueurnom()
         orientation =  self.boiteOrientation(self.jeux.terrain.orient)
         self.jeux.terrain.placer(prenierDom,orientation)
+        self.jeux.terrain.placer(prenierDom,90)
+        self.jeux.terrain.placer(prenierDom,180)
+        self.jeux.terrain.placer(prenierDom,270)
         self.actuTerain()
         self.jeux.joueursuivant()
         print(self.jeux.listeJoueur[self.jeux.joueurActuel])
     
-    def jeuxjoeur(self):
+    def jeuxjoueur(self):
         if self.jeux.finjeux() == False:
             a = True
             dominojouer = Domino(1, 2) #on va recuperer le domino et l'orientation via une boite de dialogue 
@@ -107,11 +123,21 @@ class jeuxUI(QtWidgets.QMainWindow):
             print(a)
             print(self.jeux.terrain)
             if a != False:
+                self.chargementmain()
                 self.actuTerain()
                 self.jeux.joueursuivant()
             else:# on reste sur le meme joueur.
                 self.jeux.listeJoueur[self.jeux.joueurActuel].mainj.ajouter(dominojouer)
                 a = True
+        else:
+                self.ui.ButtonJouer.setVisible(False)
+    
+    def piocher(self):
+        '''salut '''
+        if self.jeux.piocher():
+            self.jeux.joueursuivant()
+            self.chargementmain()
+            self.actuTerain() 
     
     def boitejouer(self):
         """retourne le domino que le joueur a choisi de jouer"""
@@ -121,12 +147,16 @@ class jeuxUI(QtWidgets.QMainWindow):
     def chargementmain(self):
         """On  change l'afichage de la main Creer un layout et les domminos graphiques
         les ajoueter dans le layout ajouter le layout dans les widgets"""
-        dom = QtWidgets.QVBoxLayout(self.ui.joueur1)
-        self.ui.joueur1.setLayout(dom)
-        l1 = QtWidgets.QLabel(self)
-        p = QtGui.QPixmap('Dice4.png')
-        l1.setPixmap(p)
-        self.ui.joueur1.addWidget(l1)
+        self.viderLayout_main()
+        self.changeJoueurnom()
+        main = self.jeux.listeJoueur[self.jeux.joueurActuel].mainj
+        for i in range(len(main)):
+            d = main[i]
+            for j in range(2):
+                l1 = QtWidgets.QLabel(self)
+                p = QtGui.QPixmap('dice'+str(d[j])+'.png')
+                l1.setPixmap(p)
+                self.ui.gridLayout_main.addWidget(l1, j,i)
     
     def boiteVictoire(self):
         """une boite de dialogue qui dit qui est le gagnant"""

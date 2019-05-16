@@ -2,42 +2,53 @@ from domino import Domino
 
 class MainJoueur(list):
     def __init__(self,joueur):
-        ''' '''
+        '''fonction d'initilisation de la main du joueur qui fait le lien entre le joeur et ses dominos'''
         self.__Joueur = joueur
         self.__taille = 0
         super().__init__()
-        print(self)
 
     @property
     def taille(self):
-        '''utilise pour connaitre la taille de la main du joueur'''
+        '''utilise pour connaitre la taille de la main du joueur
+        utilisation: 
+        - verifier que la main n'est pas vide 
+        '''
         return self.__taille
 
     def ajouter(self, domino):
-        '''redefinition de la fonction d'ajout pour ajouter un nouvel ellement dans notre main'''
+        '''Permet d'ajouter un domino dans la main du joueur
+        uitilsation: 
+        - fonction de pioche dans le talon
+        - test des fonctions dominofort et doublefort
+        '''
+        print("je pioche le domino "+str(domino))
         super().append(domino)
         self.__taille = self.__taille + 1
     
     def retirer(self, domino):
-        '''utilisation de la fonction remove pour retirer un element de la main'''
+        '''Permet de retirer un ellement dela main du joueur
+        utilisation:
+        - fonciton qui permet de faire le retrait d'un domino quant il a ete place
+        '''
         if self.__taille >= 0:
             self.__taille = self.__taille - 1
+            print("je joue le domino "+ str(domino))
             return self.remove(domino)
         return False
 
     def doublefort(self):
-        '''retourne le domino le plus fort si il exite et false si non'''
+        '''Permet de donner le domino (double) le plus fort present dans la main du joueur'''
         doublemax = [0,0]
         for domino in self:
             if  domino.isdouble() and sum(domino) > sum(doublemax):
                doublemax = domino 
-        print(doublemax, "double fort")
+        print("le domino double le plus fort du jeux est: "+str(doublemax))
         return doublemax
-            
 
     def dominofort(self):
-        '''retourne le domino le plus fort si il exite et false si non
-        elle doit etre utilise en lieu et place de la fonction double max si elle retrourne false'''
+        '''retourne le domino le plus fort
+        utilisation:
+        - s'utilise en lieu et place de la fonction double max si elle retrourne le domino [0,0]'''
         maxval = 0
         dominomax = 0
         for domino in self:
@@ -48,13 +59,21 @@ class MainJoueur(list):
         return dominomax
 
     def get_point(self):
-        '''compte tous les point de la main, important pour la fonction d'evaluation du minimax'''
+        '''compte tous les point de la main
+        utilisation:
+        - permet de compter le nombre de point total des dominos presents dans la main du joueur
+        '''
         tmp = 0
         for domino in self:
             tmp = domino.nb_point() + tmp
         return tmp
 
     def __str__(self):
+        '''retroune une version console de la main du joueur
+        utilisation:
+        - test 
+        - version console du jeux
+        '''
         t = ""
         for i in self:
             t = t + str(i)

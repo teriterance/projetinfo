@@ -60,6 +60,9 @@ class Jeux:
         "permet de passer au joueur suivant sans faire en sorte que le parametre soit accessible a l'exterieur de la classe"
         self.__joueurActuel = (self.__joueurActuel + 1 )% self.nombreJoueur
 
+    def piocher(self):
+        return self.listeJoueur[self.joueurActuel].mainj.ajouter(self.talon.pioche())
+
     def nouveaujeux(self, nbjoueur):
         #on creait le terrain 
         self.terrain = TerrainJeux()
@@ -83,7 +86,7 @@ class Jeux:
                 t = False     
         for i in range(self.nombreJoueur):
             for j in self.listeJoueur[i].mainj:
-                if dom.cherche(self.terrain.domcol):
+                if j.cherche(self.terrain.domcol):
                     t = False 
         return False or t 
 
@@ -122,7 +125,6 @@ class Jeux:
                     self.listeJoueur[self.joueurActuel].mainj.ajouter(dominojouer)
                     a = True
         print("jeux termine")
-        
 
 if __name__ == "__main__":
     jeu = Jeux(2)
