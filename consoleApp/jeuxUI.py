@@ -56,12 +56,12 @@ class jeuxUI(QtWidgets.QMainWindow):
                 t = self.jeux.terrain[i][j]
                 if t !='.':
                     if  int(t)<=6 and int(t) >=0:
-                        l1 = MyQLabel(self)
+                        l1 = QtWidgets.QLabel(self)
                         p = QtGui.QPixmap('dice'+str(self.jeux.terrain[i][j])+'.png')
                         l1.setPixmap(p)
                         self.ui.gridLayout.addWidget(l1,i,j)
                 else:
-                        l1 = MyQLabel(self)
+                        l1 = QtWidgets.QLabel(self)
                         p = QtGui.QPixmap('dice.png')
                         l1.setPixmap(p)
                         self.ui.gridLayout.addWidget(l1,i,j)
@@ -102,14 +102,12 @@ class jeuxUI(QtWidgets.QMainWindow):
         self.changeJoueurnom()
         orientation =  self.boiteOrientation(self.jeux.terrain.orient)
         self.jeux.terrain.placer(prenierDom,orientation)
-        self.jeux.terrain.placer(prenierDom,90)
-        self.jeux.terrain.placer(prenierDom,180)
-        self.jeux.terrain.placer(prenierDom,270)
         self.actuTerain()
         self.jeux.joueursuivant()
         print(self.jeux.listeJoueur[self.jeux.joueurActuel])
     
     def jeuxjoueur(self):
+        print("je jouer")
         if self.jeux.finjeux() == False:
             a = True
             dominojouer = Domino(1, 2) #on va recuperer le domino et l'orientation via une boite de dialogue 
@@ -119,7 +117,7 @@ class jeuxUI(QtWidgets.QMainWindow):
                 #self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(dominojouer)
                 a = self.jeux.terrain.placer(Domino(1, 2), orientation)
             else:
-                self.jeux.listeJoueur[self.jeux.joueurActuel].piocher(self.jeux.talon)
+                self.piocher()
             print(a)
             print(self.jeux.terrain)
             if a != False:
@@ -131,11 +129,11 @@ class jeuxUI(QtWidgets.QMainWindow):
                 a = True
         else:
                 self.ui.ButtonJouer.setVisible(False)
+                self.ui.boutoPiocher.setVisible(False)
     
     def piocher(self):
         '''salut '''
-        if self.jeux.piocher():
-            self.jeux.joueursuivant()
+        if self.jeux.piocher()!= False:
             self.chargementmain()
             self.actuTerain() 
     
@@ -153,7 +151,7 @@ class jeuxUI(QtWidgets.QMainWindow):
         for i in range(len(main)):
             d = main[i]
             for j in range(2):
-                l1 = QtWidgets.QLabel(self)
+                l1 = MyQLabel(self)
                 p = QtGui.QPixmap('dice'+str(d[j])+'.png')
                 l1.setPixmap(p)
                 self.ui.gridLayout_main.addWidget(l1, j,i)

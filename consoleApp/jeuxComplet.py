@@ -59,9 +59,13 @@ class Jeux:
     def joueursuivant(self):
         "permet de passer au joueur suivant sans faire en sorte que le parametre soit accessible a l'exterieur de la classe"
         self.__joueurActuel = (self.__joueurActuel + 1 )% self.nombreJoueur
+        print("+",self.__joueurActuel,"+")
 
     def piocher(self):
-        return self.listeJoueur[self.joueurActuel].mainj.ajouter(self.talon.pioche())
+        print(str(self.joueurActuel))
+        t = self.listeJoueur[self.joueurActuel].mainj.ajouter(self.talon.pioche())
+        self.joueursuivant()
+        return t
 
     def nouveaujeux(self, nbjoueur):
         #on creait le terrain 
@@ -91,7 +95,7 @@ class Jeux:
         return False or t 
 
     def jouer(self):
-        self.terrain. self.listeJoueur[self.joueurActuel].jouer()
+        self.terrain. self.listeJoueur[self.joueurActuel].jouerconsole()
         self.joueursuivant()
         
     def partie(self):

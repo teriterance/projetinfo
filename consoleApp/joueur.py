@@ -21,9 +21,10 @@ class Joueur():
     
     @property
     def numero(self):
+        '''le numero du joueur code la couleur '''
         return self.__numero
 
-    def jouer1(self):
+    def jouerconsole(self):
         '''Fonction de jeux dans le terrain'''
         print("entrez le domino a jouer, valeur 1 entrer puis valeur 2")
         val1 = int(input())
@@ -34,6 +35,7 @@ class Joueur():
         return d ,orientation
 
     def jouer(self, domino):
+        ''''depose le domino choisi par le joueur sur le terrain'''
         if self.mainj.retirer(domino) != False:
             return True
         else:
