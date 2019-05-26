@@ -4,7 +4,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 class MyQLabel(QLabel):
-    def __init__(self, parent):
+    def __init__(self, parent, num):
+        self.num = num
         super().__init__(parent)
     clicked = pyqtSignal()
     rightClicked = pyqtSignal()

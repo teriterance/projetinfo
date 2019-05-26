@@ -113,10 +113,11 @@ class jeuxUI(QtWidgets.QMainWindow):
             dominojouer = Domino(1, 2) #on va recuperer le domino et l'orientation via une boite de dialogue 
             orientation  = 90
             #self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(dominojouer)
-            if dominojouer in self.jeux.listeJoueur[self.jeux.joueurActuel].mainj or True:
+            if dominojouer in self.jeux.listeJoueur[self.jeux.joueurActuel].mainj:
                 #self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(dominojouer)
                 a = self.jeux.terrain.placer(Domino(1, 2), orientation)
             else:
+                print("pret a piocher")
                 self.piocher()
             print(a)
             print(self.jeux.terrain)
@@ -136,6 +137,7 @@ class jeuxUI(QtWidgets.QMainWindow):
         if self.jeux.piocher()!= False:
             self.chargementmain()
             self.actuTerain() 
+            self.jeux.joueursuivant()
     
     def boitejouer(self):
         """retourne le domino que le joueur a choisi de jouer"""
@@ -151,7 +153,7 @@ class jeuxUI(QtWidgets.QMainWindow):
         for i in range(len(main)):
             d = main[i]
             for j in range(2):
-                l1 = MyQLabel(self)
+                l1 = MyQLabel(self,i)
                 p = QtGui.QPixmap('dice'+str(d[j])+'.png')
                 l1.setPixmap(p)
                 self.ui.gridLayout_main.addWidget(l1, j,i)

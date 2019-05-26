@@ -9,7 +9,7 @@ class TerrainJeux(list):
         on defini, 
         la taille du terrain
         '''
-        self.taille = 20
+        self.taille = 18
         for i in range(self.taille):
             self.append([])
             for j in range(self.taille):

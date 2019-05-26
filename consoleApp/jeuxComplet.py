@@ -114,7 +114,7 @@ class Jeux:
             for i in range(self.nombreJoueur):
                 a = True
                 print(self.listeJoueur[self.joueurActuel])
-                dominojouer,orientation = self.listeJoueur[self.joueurActuel].jouer1()
+                dominojouer,orientation = self.listeJoueur[self.joueurActuel].jouerconsole()
                 if dominojouer in self.listeJoueur[self.joueurActuel].mainj:
                     self.listeJoueur[self.joueurActuel].jouer(dominojouer)
                     a = self.terrain.placer(dominojouer, orientation) != False
