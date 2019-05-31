@@ -38,6 +38,13 @@ class Talon(list):
             self[tmp] = self[i]
             self[i] = tmpDomino
     
+    def estDans(self, val):
+        t = True 
+        for dom in self: 
+            if dom.cherche(val):
+                t = False
+        return False
+    
     def __str__(self):
         '''renvoie une forme visuelle du talon'''
         if self.__size >0 :

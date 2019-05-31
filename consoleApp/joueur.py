@@ -26,6 +26,10 @@ class Joueur():
 
     def jouerconsole(self):
         '''Fonction de jeux dans le terrain'''
+        print("voulez vous piocher Oui(O) Non(N)")
+        val1 = input()
+        if val1 == "O":
+            return 9, 0
         print("entrez le domino a jouer, valeur 1 entrer puis valeur 2")
         val1 = int(input())
         val2 = int(input())

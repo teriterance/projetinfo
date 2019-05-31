@@ -22,16 +22,17 @@ class MainJoueur(list):
         - test des fonctions dominofort et doublefort
         '''
         print("je pioche le domino "+str(domino))
-        super().append(domino)
-        self.__taille = self.__taille + 1
+        if super().append(domino):
+            return True
+        else: 
+            return False
     
     def retirer(self, domino):
         '''Permet de retirer un ellement dela main du joueur
         utilisation:
         - fonciton qui permet de faire le retrait d'un domino quant il a ete place
         '''
-        if self.__taille >= 0:
-            self.__taille = self.__taille - 1
+        if len(self) > 0:
             print("je joue le domino "+ str(domino))
             return self.remove(domino)
         return False

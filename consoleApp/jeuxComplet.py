@@ -5,13 +5,14 @@ from talon import Talon
 from terrainjeux import TerrainJeux
 
 class Jeux:
-    def __init__(self, nbj, t = 0):
+    def __init__(self, nbj, consoleGraphique = 0):
         "cette fonction initilaise le jeu"
         self.numeroTour = 1
         self.nombreJoueur = nbj
         self.terrain = TerrainJeux()
-        if t == 0:
-            self.listeJoueur = [Joueur(i, input("entrez le nom du joueur "+str(i)+" ")) for i in range(self.nombreJoueur)]
+        if consoleGraphique == 0:
+            # 0 pour le jeux en console les autres valeurs pour le jeux graphique 
+            self.listeJoueur = [Joueur(i, input("entrez le nom du joueur "+str(i)+"\n")) for i in range(self.nombreJoueur)]
         else:
             self.listeJoueur = [Joueur(i) for i in range(self.nombreJoueur)]    
         self.talon = Talon()
@@ -59,54 +60,78 @@ class Jeux:
     def joueursuivant(self):
         "permet de passer au joueur suivant sans faire en sorte que le parametre soit accessible a l'exterieur de la classe"
         self.__joueurActuel = (self.__joueurActuel + 1 )% self.nombreJoueur
-        print("+",self.__joueurActuel,"+")
+        
 
     def piocher(self):
+        "appeler pour garantir que le joeur a bien piocher, on passe au joueur suivant"
         print(str(self.joueurActuel))
-        t = self.listeJoueur[self.joueurActuel].mainj.ajouter(self.talon.pioche())
+        pupiocher = self.listeJoueur[self.joueurActuel].mainj.ajouter(self.talon.pioche())
         self.joueursuivant()
-        return t
+        return pupiocher
 
     def nouveaujeux(self, nbjoueur):
         #on creait le terrain 
         self.terrain = TerrainJeux()
         #on cree la pioche ou talon
         self.talon = Talon()
+        self.talon.mix()
         #on demande le nombre de joueur ceci se fera dans une boite de dialogue 
         self.nombreJoueur = 0
         #on creai les joueru 
         self.listeJoueur = [Joueur(i) for i in range(self.nombreJoueur)]
         #on deffinit le joueur actuel
         self.__joueurActuel = 0
+        #on reinitialise le gagnant 
+        self.gagnant = None
+        self.nbpointgagnant = None
 
     def finjeux(self):
+        if self.talon.size == 0:
+            #si le talon est vide on a une fin possible du jeux 
+            smax = 100
+            for joueur in self.listeJoueur:
+                s = 0
+                for dom in joueur.mainj:
+                    s = s + sum(dom)
+                if s <smax:
+                    smax, self.gagnant= s, joueur.numero
+                else:
+                    self.nbpointgagnant = s
+            return True
+
         for joueur in self.listeJoueur:
+            #si la main d'un joueur est vide 
             if len(joueur.mainj) == 0:
+                s = 0
+                for joueur in self.listeJoueur:
+                    for dom in joueur.mainj:
+                        s = s + sum(dom)
+                self.nbpointgagnant = s
                 self.gagnant = joueur.numero
                 return True
-        t =  True
-        for dom in self.talon:
-            if dom.cherche(self.terrain.domcol):
-                t = False     
-        for i in range(self.nombreJoueur):
-            for j in self.listeJoueur[i].mainj:
-                if j.cherche(self.terrain.domcol):
-                    t = False 
-        return False or t 
+
+        #cas ou il n'y a plus de possibilite de completer la chaine de domino
+        if self.talon.estDans(self.terrain.dombout):
+            #on cherche dans le talon un domino pouvant le faire
+            return False
+        for joueur in self.listeJoueur:
+            #on cherche dans les mains des joueurs
+            for dom in joueur.mainj:
+                if dom.cherche(self.terrain.dombout):
+                    return False 
+        return True 
 
     def jouer(self):
         self.terrain. self.listeJoueur[self.joueurActuel].jouerconsole()
         self.joueursuivant()
         
     def partie(self):
-
-        print(self.talon)
         print(self.terrain)
         self.distribution()
         prenierDom = self.premierJoueur()
         self.listeJoueur[self.joueurActuel].jouer(prenierDom)
         print(str(self.joueurActuel))
-        orientation = input("entrez lorientation du premier domino")
+        orientation = input("entrez lorientation du premier domino, les possibilite sont \n 0 pour a plat de gauche a droite \n 90 de bas en haut \n 180 de droite a gauche \n 270 de haut en bas\n")
         t = self.terrain.placer(prenierDom,orientation)
         print(self.terrain)
         self.joueursuivant()
@@ -115,20 +140,20 @@ class Jeux:
                 a = True
                 print(self.listeJoueur[self.joueurActuel])
                 dominojouer,orientation = self.listeJoueur[self.joueurActuel].jouerconsole()
-                if dominojouer in self.listeJoueur[self.joueurActuel].mainj:
-                    self.listeJoueur[self.joueurActuel].jouer(dominojouer)
-                    a = self.terrain.placer(dominojouer, orientation) != False
-                    print(a)
-                else:
+                if dominojouer == 9:
                     self.listeJoueur[self.joueurActuel].piocher(self.talon)
-                if a== True:
                     self.joueursuivant()
-                    print(self.terrain)
-                else:# on reste sur le meme joueur.
-                    i = i-1
-                    self.listeJoueur[self.joueurActuel].mainj.ajouter(dominojouer)
-                    a = True
-        print("jeux termine")
+                else:   
+                    if dominojouer in self.listeJoueur[self.joueurActuel].mainj:
+                        if self.terrain.placer(dominojouer, orientation) != False:
+                            if self.listeJoueur[self.joueurActuel].jouer(dominojouer) != False:
+                                self.joueursuivant()
+                                print(self.terrain)
+                            else:
+                                print(" impossible de jouer ce domino, veuillez piocher")
+                        else:
+                            print(" impossible de placer ce domino, essayer un autre piocher")
+        print("jeux termine\n le gangnant est le joueur: ", self.gagnant, self.nbpointgagnant)
 
 if __name__ == "__main__":
     jeu = Jeux(2)

@@ -16,7 +16,7 @@ class TerrainJeux(list):
                 self[i].append('.')
         self.dernierCouleur = 4 # on defini la derniere couleur qui a ete joue a 4 qui est hors de la liste
         self.boutChaine = [math.ceil(self.taille/2), math.ceil(self.taille/2)]
-        self.domcol = 0.5
+        self.dombout = 0.5
         self.premier = True
         self.domsterain = []
         self.orient = 111.5
@@ -33,9 +33,9 @@ class TerrainJeux(list):
     def placer(self, domino, orientation, dep =0):
         
         """objectif , placer le premier domino au centre dans une direction fixe"""
-        if self.boutChaine[0] < self.taille and self.boutChaine[1] < self.taille and self.boutChaine[0] > 0 and self.boutChaine[1] > 0 and self.domcol == domino[0] or self.premier:
+        if self.boutChaine[0] < self.taille and self.boutChaine[1] < self.taille and self.boutChaine[0] > 0 and self.boutChaine[1] > 0 and self.dombout == domino[0] or self.premier:
             self[self.boutChaine[0]][self.boutChaine[1]] = domino[0]
-            print(self.domcol, domino[0], self.premier)
+            print(self.dombout, domino[0], self.premier)
             self.domsterain.append(domino)
             self.premier = False
         else:
@@ -49,28 +49,28 @@ class TerrainJeux(list):
             if self.boutChaine[1] +1 < self.taille:
                 self[self.boutChaine[0]][self.boutChaine[1] + 1] =  domino[1]
                 self.boutChaine = [self.boutChaine[0], self.boutChaine[1] + 2]
-                self.domcol = domino[1]
+                self.dombout = domino[1]
                 self.orient = 0
                 self.domsterain.append(domino)
         elif orientation == 90 and self.orient != 270:
             if self.boutChaine[1] -2 >= 0:
                 self[self.boutChaine[0] - 1][self.boutChaine[1]] =  domino[1]
                 self.boutChaine = [self.boutChaine[0] -2, self.boutChaine[1]]
-                self.domcol = domino[1]
+                self.dombout = domino[1]
                 self.orient = 90
                 self.domsterain.append(domino)
         elif orientation == 180 and self.orient != 0:
             if self.boutChaine[1]  -1 < self.taille:
                 self[self.boutChaine[0]][self.boutChaine[1] -1] =  domino[1]
                 self.boutChaine = [self.boutChaine[0], self.boutChaine[1] - 2]
-                self.domcol = domino[1]
+                self.dombout = domino[1]
                 self.orient = 180
                 self.domsterain.append(domino)
         elif orientation == 270 and self.orient != 90:
             if self.boutChaine[0] + 1 < self.taille:
                 self[self.boutChaine[0] + 1][self.boutChaine[1]] =  domino[1]
                 self.boutChaine = [self.boutChaine[0] + 2, self.boutChaine[1]]
-                self.domcol = domino[1]
+                self.dombout = domino[1]
                 self.orient = 270
                 self.domsterain.append(domino)
         else:
