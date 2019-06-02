@@ -24,7 +24,7 @@ class Joueur():
         '''le numero du joueur code la couleur '''
         return self.__numero
 
-    def jouerconsole(self):
+    def jouerconsole(self, terrain):
         '''Fonction de jeux dans le terrain'''
         print("voulez vous piocher Oui(O) Non(N)")
         val1 = input()

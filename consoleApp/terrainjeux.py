@@ -1,5 +1,6 @@
 import numpy as np
 import math
+from talon import Talon
 from domino import Domino
 
 class TerrainJeux(list):

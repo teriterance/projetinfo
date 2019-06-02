@@ -1,18 +1,20 @@
 from domino import Domino
 from joueur import Joueur
+from joueruIAmax import JoueurAI
 #from joueurAI import JoueurAI
 from talon import Talon
 from terrainjeux import TerrainJeux
 
 class Jeux:
-    def __init__(self, nbj, consoleGraphique = 0):
+    def __init__(self, nbj, nbIA = 0, consoleGraphique = 0):
         "cette fonction initilaise le jeu"
         self.numeroTour = 1
         self.nombreJoueur = nbj
         self.terrain = TerrainJeux()
         if consoleGraphique == 0:
             # 0 pour le jeux en console les autres valeurs pour le jeux graphique 
-            self.listeJoueur = [Joueur(i, input("entrez le nom du joueur "+str(i)+"\n")) for i in range(self.nombreJoueur)]
+            self.listeJoueur = [Joueur(i, input("entrez le nom du joueur "+str(i)+"\n")) for i in range(self.nombreJoueur-nbIA)]
+            self.listeJoueur.extend([JoueurAI(i + self.nombreJoueur - nbIA, "Ordi "+str(i)) for i in range(nbIA)])
         else:
             self.listeJoueur = [Joueur(i) for i in range(self.nombreJoueur)]    
         self.talon = Talon()
@@ -139,7 +141,7 @@ class Jeux:
             for i in range(self.nombreJoueur):
                 a = True
                 print(self.listeJoueur[self.joueurActuel])
-                dominojouer,orientation = self.listeJoueur[self.joueurActuel].jouerconsole()
+                dominojouer,orientation = self.listeJoueur[self.joueurActuel].jouerconsole(self.terrain)
                 if dominojouer == 9:
                     self.listeJoueur[self.joueurActuel].piocher(self.talon)
                     self.joueursuivant()
@@ -156,5 +158,5 @@ class Jeux:
         print("jeux termine\n le gangnant est le joueur: ", self.gagnant, self.nbpointgagnant)
 
 if __name__ == "__main__":
-    jeu = Jeux(2)
+    jeu = Jeux(2, 1)
     jeu.partie()
