@@ -1,1 +1,7 @@
-My project is to create the domimos graphic game in python with AI  player 
+Pour l'instat on a un fonctionnement plusto correct. il nous faut programmer la fin de partie Et definir la nature de L'IA 
+Objectif 
+** Avoir une version complete jouable en Console 
+** Avoir une version avec IA fonctionnel
+** Fixer les problemes de fin de partie 
+** Introduire les notions de couleur
+** la version graphique doit adopter un mode de jeux 
