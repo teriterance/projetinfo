@@ -66,9 +66,8 @@ class Jeux:
 
     def piocher(self):
         "appeler pour garantir que le joeur a bien piocher, on passe au joueur suivant"
-        print(str(self.joueurActuel))
+        print(self.listeJoueur[self.joueurActuel].mainj)
         pupiocher = self.listeJoueur[self.joueurActuel].mainj.ajouter(self.talon.pioche())
-        self.joueursuivant()
         return pupiocher
 
     def nouveaujeux(self, nbjoueur):
@@ -128,26 +127,33 @@ class Jeux:
         self.joueursuivant()
         
     def partie(self):
+        # on affiche le terrain  et effectue les premiers traitements
         print(self.terrain)
         self.distribution()
         prenierDom = self.premierJoueur()
         self.listeJoueur[self.joueurActuel].jouer(prenierDom)
         print(str(self.joueurActuel))
+        #meme si le joueur est une IA c'est un joueur humain qui place le premier domino
         orientation = input("entrez lorientation du premier domino, les possibilite sont \n 0 pour a plat de gauche a droite \n 90 de bas en haut \n 180 de droite a gauche \n 270 de haut en bas\n")
         t = self.terrain.placer(prenierDom,orientation)
         print(self.terrain)
         self.joueursuivant()
+        # on debute la boucle de jeux
         while self.finjeux() == False:
             for i in range(self.nombreJoueur):
                 a = True
                 print(self.listeJoueur[self.joueurActuel])
+                #ici on demande au joueur le domino et son orientation 
                 dominojouer,orientation = self.listeJoueur[self.joueurActuel].jouerconsole(self.terrain)
+                #si il ne peut jouer il nous envoi 9 et donc pioche
                 if dominojouer == 9:
                     self.listeJoueur[self.joueurActuel].piocher(self.talon)
                     self.joueursuivant()
                 else:   
+                    #si il peut jouer il est place sont domino sur le terrain
                     if dominojouer in self.listeJoueur[self.joueurActuel].mainj:
                         if self.terrain.placer(dominojouer, orientation) != False:
+                            #ici on lui retire de la main le domino a jouer
                             if self.listeJoueur[self.joueurActuel].jouer(dominojouer) != False:
                                 self.joueursuivant()
                                 print(self.terrain)
