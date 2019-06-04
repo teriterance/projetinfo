@@ -18,14 +18,8 @@ class jeuxUI(QtWidgets.QMainWindow):
         self.ui.terain.setStyleSheet("background-image:url(./file.jpg); background-repeat: no-repeat;")
         self.ui.actionCouleur.triggered.connect(self.changecouleur)
         self.ui.actionNouveau.triggered.connect(self.jouer)
-        self.ui.ButtonJouer.clicked.connect(self.jeuxjoueur)
         self.ui.boutoPiocher.clicked.connect(self.piocher)
-        self.ui.val1.setRange(0,6)
-        self.ui.val2.setRange(0,6)
-        self.ui.val1.setVisible(False)
-        self.ui.val2.setVisible(False)
         self.ui.boutoPiocher.setVisible(False)
-        self.ui.ButtonJouer.setVisible(False)
         self.font = QtGui.QFont('SansSerif', 24)
         self.ui.gridLayout.setSpacing(0)
         self.ui.label.setFont(self.font)
@@ -107,11 +101,7 @@ class jeuxUI(QtWidgets.QMainWindow):
 
     def partie(self):
         '''cette focntion gere le debut de partie'''
-        self.ui.ButtonJouer.setVisible(True)
         self.ui.boutoPiocher.setVisible(True)
-        self.ui.val1.setVisible(True)
-        self.ui.val2.setVisible(True)
-        
         self.jeux.distribution()
         self.chargementmain()
         #introduire une cinematique 
@@ -128,16 +118,20 @@ class jeuxUI(QtWidgets.QMainWindow):
         self.changeJoueurnom()
         print(self.jeux.listeJoueur[self.jeux.joueurActuel])
     
-    def jeuxjoueur(self):
+    def jeuxjoueur(self, dominoAjouer = None):
         '''elle est appleler pour faire jouer un joueur'''
         print("je joue")
         if self.jeux.finjeux() == False:
-            dominojouer, orientation = None, None
-            if isinstance(self.jeux.listeJoueur[self.jeux.joueurActuel], JoueurAI) == False:
-                dominojouer = Domino(self.ui.val1.value(), self.ui.val2.value()) #on va recuperer le domino et l'orientation via une boite de dialogue 
-                orientation  = 90
+            if dominoAjouer == None:
+                dominojouer, orientation = None, None
+                if isinstance(self.jeux.listeJoueur[self.jeux.joueurActuel], JoueurAI) == False:
+                    dominojouer = Domino(self.ui.val1.value(), self.ui.val2.value()) #on va recuperer le domino et l'orientation via une boite de dialogue 
+                    orientation  = 90
+                else:
+                    dominojouer, orientation = self.jeux.listeJoueur[self.jeux.joueurActuel].jouerconsole(self.jeux.terrain)
             else:
-                dominojouer, orientation = self.jeux.listeJoueur[self.jeux.joueurActuel].jouerconsole(self.jeux.terrain)
+                dominojouer = dominoAjouer
+                orientation = 90
             print(dominojouer)
             print(self.jeux.listeJoueur[self.jeux.joueurActuel].mainj)
             #self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(dominojouer)
@@ -153,7 +147,6 @@ class jeuxUI(QtWidgets.QMainWindow):
                     if dominojouer not in self.jeux.listeJoueur[self.jeux.joueurActuel].mainj:
                         self.jeux.listeJoueur[self.jeux.joueurActuel].mainj.ajouter(dominojouer)
         else:
-                self.ui.ButtonJouer.setVisible(False)
                 self.ui.boutoPiocher.setVisible(False)
         print(self.jeux.terrain)
         print(self.jeux.listeJoueur[self.jeux.joueurActuel])
@@ -181,9 +174,10 @@ class jeuxUI(QtWidgets.QMainWindow):
         for i in range(len(main)):
             d = main[i]
             for j in range(2):
-                l1 = MyQLabel(self,i)
+                l1 = MyQLabel(self,d)
                 p = QtGui.QPixmap('dice'+str(d[j])+'.png')
                 l1.setPixmap(p)
+                l1.clicked.connect(self.jeuxjoueur)
                 self.ui.gridLayout_main.addWidget(l1, j,i)
     
     def boiteVictoire(self):
