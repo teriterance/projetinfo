@@ -47,7 +47,7 @@ class Joueur():
 
     def piocher(self, talon):
         "Permet de faire une pioche"
-        self.mainj.ajouter(talon.pioche())
+        self.mainj.ajouter(talon.pioche(), self.numero)
         return talon
     
     def __str__(self):

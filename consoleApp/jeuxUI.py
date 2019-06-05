@@ -15,7 +15,7 @@ class jeuxUI(QtWidgets.QMainWindow):
         QtWidgets.QMainWindow.__init__(self, *args)
         #chargement de l'interface graphique
         self.ui = uic.loadUi("Jeux.ui",self)
-        self.ui.terain.setStyleSheet("background-image:url(./file.jpg); background-repeat: no-repeat;")
+        self.ui.terain.setStyleSheet("background-image:url(img/file.jpg); background-repeat: no-repeat;")
         self.ui.actionCouleur.triggered.connect(self.changecouleur)
         self.ui.actionNouveau.triggered.connect(self.jouer)
         self.ui.boutoPiocher.clicked.connect(self.piocher)
@@ -50,7 +50,8 @@ class jeuxUI(QtWidgets.QMainWindow):
     def boiteOrientation(self, angle=None):
         '''cette fonction nous donne le nombre de joueurs via une boite de dialogue on y retire l'angle a ne pas jouer'''
         v = ['0','90','180','270']
-        #v.remove(angle)
+        if angle !=None:
+            v.remove(str((angle+180)%360))
         nb, result = QtWidgets.QInputDialog.getItem(self, 'Nombre Joueur','Entrez l\'orientation pour le domino:', v, 0, False)
         if result == True:
             return int(nb)
@@ -65,7 +66,7 @@ class jeuxUI(QtWidgets.QMainWindow):
                 if t !='.':
                     if  int(t)<=6 and int(t) >=0:
                         l1 = QtWidgets.QLabel(self)
-                        p = QtGui.QPixmap('dice'+str(self.jeux.terrain[i][j])+'.png')
+                        p = QtGui.QPixmap('img/dice'+str(self.jeux.terrain[i][j])+str(self.jeux.terrain.tableauCouleur[i][j])+'.png')
                         l1.setPixmap(p)
                         self.ui.gridLayout.addWidget(l1,i,j)
                 else:
@@ -110,7 +111,7 @@ class jeuxUI(QtWidgets.QMainWindow):
         prenierDom = self.jeux.premierJoueur()
         self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(prenierDom)#jouer doit etre modifier pour prendre en entree l'angle
         self.changeJoueurnom()
-        orientation =  self.boiteOrientation(self.jeux.terrain.orient)
+        orientation =  self.boiteOrientation()
         self.jeux.terrain.placer(prenierDom,orientation)
         self.jeux.joueursuivant()
         self.actuTerain()
@@ -131,7 +132,7 @@ class jeuxUI(QtWidgets.QMainWindow):
                     dominojouer, orientation = self.jeux.listeJoueur[self.jeux.joueurActuel].jouerconsole(self.jeux.terrain)
             else:
                 dominojouer = dominoAjouer
-                orientation = 90
+                orientation = self.boiteOrientation(self.jeux.terrain.orient)
             print(dominojouer)
             print(self.jeux.listeJoueur[self.jeux.joueurActuel].mainj)
             #self.jeux.listeJoueur[self.jeux.joueurActuel].jouer(dominojouer)
@@ -148,6 +149,7 @@ class jeuxUI(QtWidgets.QMainWindow):
                         self.jeux.listeJoueur[self.jeux.joueurActuel].mainj.ajouter(dominojouer)
         else:
                 self.ui.boutoPiocher.setVisible(False)
+                self.boiteVictoire()
         print(self.jeux.terrain)
         print(self.jeux.listeJoueur[self.jeux.joueurActuel])
     
@@ -157,7 +159,6 @@ class jeuxUI(QtWidgets.QMainWindow):
             self.jeux.piocher()
             self.jeux.joueursuivant()
             self.chargementmain()
-            self.actuTerain() 
             self.changeJoueurnom()
     
     def boitejouer(self):
@@ -175,7 +176,7 @@ class jeuxUI(QtWidgets.QMainWindow):
             d = main[i]
             for j in range(2):
                 l1 = MyQLabel(self,d)
-                p = QtGui.QPixmap('dice'+str(d[j])+'.png')
+                p = QtGui.QPixmap('img/dice'+str(d[j])+str(d.color)+'.png')
                 l1.setPixmap(p)
                 l1.clicked.connect(self.jeuxjoueur)
                 self.ui.gridLayout_main.addWidget(l1, j,i)

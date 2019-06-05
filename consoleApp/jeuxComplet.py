@@ -67,7 +67,7 @@ class Jeux:
     def piocher(self):
         "appeler pour garantir que le joeur a bien piocher, on passe au joueur suivant"
         print(self.listeJoueur[self.joueurActuel].mainj)
-        pupiocher = self.listeJoueur[self.joueurActuel].mainj.ajouter(self.talon.pioche())
+        pupiocher = self.listeJoueur[self.joueurActuel].mainj.ajouter(self.talon.pioche(), self.listeJoueur[self.joueurActuel].numero)
         return pupiocher
 
     def nouveaujeux(self, nbjoueur):

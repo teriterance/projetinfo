@@ -15,13 +15,15 @@ class MainJoueur(list):
         '''
         return self.__taille
 
-    def ajouter(self, domino):
+    def ajouter(self, domino, num):
         '''Permet d'ajouter un domino dans la main du joueur
         uitilsation: 
         - fonction de pioche dans le talon
         - test des fonctions dominofort et doublefort
         '''
         print("je pioche le domino "+str(domino))
+        print("\n\n\n"+str(num))
+        domino.color = num
         if super().append(domino):
             return True
         else: 
