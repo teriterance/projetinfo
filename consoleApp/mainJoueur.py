@@ -81,3 +81,15 @@ class MainJoueur(list):
         for i in self:
             t = t + str(i)
         return t 
+        
+if __name__ == "__main__":
+    m = MainJoueur(1)
+    m.ajouter(Domino(1,1),1)
+    m.ajouter(Domino(2,2),1)
+    m.ajouter(Domino(1,6),1)
+    m.ajouter(Domino(5,1),1)
+    print(m)
+    print(m.dominofort())
+    print(m.doublefort())
+    m.retirer(Domino(2,2))
+    print(m)

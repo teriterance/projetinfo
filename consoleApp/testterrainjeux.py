@@ -1,47 +1,30 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed May 29 16:10:00 2019
-
-@author: fonenswi
-"""
-
-#les tests unitaitres
-
 import unittest
 import math
-from terrainjeux import *
+import numpy as np
+from terrainjeux import TerrainJeux
+from domino  import Domino
 
-class TerrainJeux(unittest.TestCase):
+class Test_TerrainJeux(unittest.TestCase):
     def test_init(self):
-        pass
-    
-    def test_str2(self):
-        y=Domino(5,5,0)
-        t="domino"
-        s=t+str(y[1])
-        self.assertEqual(s,"domino5")
-        return True
-        
+        t = TerrainJeux()
+        self.assertEqual(len(t), 18)
+        self.assertEqual(len(t[1]), 18)
+        self.assertEqual(t.tableauCouleur, np.ones([t.taille,t.taille], int)*7)
     
     def test_retourner(self):
-        x=Domino(6,5,0)
-        self.assertEqual(x[0],6)
-        self.assertEqual(x[1],5)
+        t = TerrainJeux()
+        d = Domino(6,5,0)
+        self.assertEqual(t.retourner(d),Domino(5,6,0))
         return True
     
     def test_placer(self):
-        x=Domino(6,5,0)
-        placer1=(x,180,0)
-        placer2=(x,180,0)
-        self.assertEqual(placer1,placer2)
+        t = TerrainJeux()
+        t2= TerrainJeux()
+        t.placer(Domino(6,5,0), 0)
+        self.assertNotEqual(t,t2)# on a bien place
+        t2.placer(Domino(6,5,0), 90)
+        self.assertNotEqual(t,t2)# on a bien place avec des angles different 
         return True
-    
-#    def  test__str__(self):
-#        y=Domino(5,5,0)
-#        t="domino*"
-#        s=t+str(y[1])
-#        self.assertEqual(s,"domino*5")
-#        return True
 
 if __name__ == "__main__":
     unittest.main()

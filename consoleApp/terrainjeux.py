@@ -32,7 +32,7 @@ class TerrainJeux(list):
         return self_str
     
     def retourner(self,domino):
-        return Domino(domino[1], domino[0])
+        return Domino(domino[1], domino[0], domino.color)
             
     def placer(self, domino, orientation, dep = 0):
         print(self.tableauCouleur)
