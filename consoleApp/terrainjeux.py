@@ -37,7 +37,7 @@ class TerrainJeux(list):
     def placer(self, domino, orientation, dep = 0):
         print(self.tableauCouleur)
         """objectif , placer le premier domino au centre dans une direction fixe"""
-        if self.boutChaine[0] < self.taille and self.boutChaine[1] < self.taille and self.boutChaine[0] > 0 and self.boutChaine[1] > 0 and self.dombout == domino[0] or self.premier:
+        if self.boutChaine[0] < self.taille - 1 and self.boutChaine[1] < self.taille - 1 and self.boutChaine[0] > 1 and self.boutChaine[1] > 1 and self.dombout == domino[0] or self.premier:
             self[self.boutChaine[0]][self.boutChaine[1]] = domino[0]# la variable boutChaine code pour la position x,y du dernier domino
             self.tableauCouleur[self.boutChaine[0]][self.boutChaine[1]] = domino.color
             print(self.dombout, domino[0], self.premier)
@@ -51,7 +51,8 @@ class TerrainJeux(list):
 
         orientation = int(orientation)
         if orientation == 0 and self.orient != 180:
-            if self.boutChaine[1] +2 < self.taille:
+            if self.boutChaine[1] +3 < self.taille and self[self.boutChaine[0]][self.boutChaine[1] + 1] =='.':
+                print(self.boutChaine[1])
                 self[self.boutChaine[0]][self.boutChaine[1] + 1] =  domino[1]
                 self.tableauCouleur[self.boutChaine[0]][self.boutChaine[1] + 1] = domino.color
                 self.boutChaine = [self.boutChaine[0], self.boutChaine[1] + 2]
@@ -61,7 +62,7 @@ class TerrainJeux(list):
             else:
                 return False
         elif orientation == 90 and self.orient != 270:
-            if self.boutChaine[0] -3 > 0:
+            if self.boutChaine[0] -3 > 0 and self[self.boutChaine[0] - 1][self.boutChaine[1]] == '.':
                 self[self.boutChaine[0] - 1][self.boutChaine[1]] =  domino[1]
                 self.tableauCouleur[self.boutChaine[0] - 1][self.boutChaine[1]] = domino.color
                 self.boutChaine = [self.boutChaine[0] -2, self.boutChaine[1]]
@@ -71,7 +72,7 @@ class TerrainJeux(list):
             else:
                 return False
         elif orientation == 180 and self.orient != 0:
-            if self.boutChaine[1]  -3 > 0:
+            if self.boutChaine[1]  -3 > 0 and self[self.boutChaine[0]][self.boutChaine[1] -1] == '.':
                 self[self.boutChaine[0]][self.boutChaine[1] -1] =  domino[1]
                 self.tableauCouleur[self.boutChaine[0]][self.boutChaine[1] -1] = domino.color
                 self.boutChaine = [self.boutChaine[0], self.boutChaine[1] - 2]
@@ -80,7 +81,7 @@ class TerrainJeux(list):
                 self.domsterain.append(domino)
             else:
                 return False
-        elif orientation == 270 and self.orient != 90:
+        elif orientation == 270 and self.orient != 90 and self[self.boutChaine[0] + 1][self.boutChaine[1]] =='.':
             if self.boutChaine[0] + 3 < self.taille:
                 self[self.boutChaine[0] + 1][self.boutChaine[1]] =  domino[1]
                 self.tableauCouleur[self.boutChaine[0] + 1][self.boutChaine[1]] = domino.color
