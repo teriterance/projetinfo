@@ -62,7 +62,9 @@ class Jeux:
     def joueursuivant(self):
         "permet de passer au joueur suivant sans faire en sorte que le parametre soit accessible a l'exterieur de la classe"
         self.__joueurActuel = (self.__joueurActuel + 1 )% self.nombreJoueur
-        
+    def joueurprecedent(self):
+        "permet de revenir au joueur precedent sans faire en sorte que le parametre soit accessible a l'exterieur de la classe"
+        self.__joueurActuel = (self.__joueurActuel - 1 )% self.nombreJoueur
 
     def piocher(self):
         "appeler pour garantir que le joeur a bien piocher, on passe au joueur suivant"
@@ -98,6 +100,17 @@ class Jeux:
                     smax, self.gagnant= s, joueur.numero
                 else:
                     self.nbpointgagnant = s
+            return True
+
+        # le cas ou le jeux est bloque
+        if self.terrain[self.terrain.boutChaine[0]][self.terrain.boutChaine[1]] !='.':
+            self.joueurprecedent()
+            self.gagnant = self.joueurActuel
+            s =0
+            for joueur in self.listeJoueur:
+                    for dom in joueur.mainj:
+                        s = s + sum(dom)
+            self.nbpointgagnant = s
             return True
 
         for joueur in self.listeJoueur:

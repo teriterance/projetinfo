@@ -60,6 +60,7 @@ class TerrainJeux(list):
                 self.orient = 0
                 self.domsterain.append(domino)
             else:
+                self[self.boutChaine[0]][self.boutChaine[1]] = '.'
                 return False
         elif orientation == 90 and self.orient != 270:
             if self.boutChaine[0] -3 > 0 and self[self.boutChaine[0] - 1][self.boutChaine[1]] == '.':
@@ -70,6 +71,7 @@ class TerrainJeux(list):
                 self.orient = 90
                 self.domsterain.append(domino)
             else:
+                self[self.boutChaine[0]][self.boutChaine[1]] = '.'
                 return False
         elif orientation == 180 and self.orient != 0:
             if self.boutChaine[1]  -3 > 0 and self[self.boutChaine[0]][self.boutChaine[1] -1] == '.':
@@ -80,6 +82,7 @@ class TerrainJeux(list):
                 self.orient = 180
                 self.domsterain.append(domino)
             else:
+                self[self.boutChaine[0]][self.boutChaine[1]] = '.'
                 return False
         elif orientation == 270 and self.orient != 90 and self[self.boutChaine[0] + 1][self.boutChaine[1]] =='.':
             if self.boutChaine[0] + 3 < self.taille:
@@ -90,8 +93,10 @@ class TerrainJeux(list):
                 self.orient = 270
                 self.domsterain.append(domino)
             else:
+                self[self.boutChaine[0]][self.boutChaine[1]] = '.'
                 return False
         else:
+            self[self.boutChaine[0]][self.boutChaine[1]] = '.'
             return False
 
     def __str__(self):

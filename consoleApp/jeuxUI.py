@@ -5,6 +5,7 @@ from domino import Domino
 from jeuxComplet import Jeux
 from joueruIAmax import JoueurAI
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
+from PyQt5.QtMultimedia import QSound
 from clikable_label import MyQLabel
 
 class jeuxUI(QtWidgets.QMainWindow):
@@ -23,6 +24,7 @@ class jeuxUI(QtWidgets.QMainWindow):
         self.font = QtGui.QFont('SansSerif', 24)
         self.ui.gridLayout.setSpacing(0)
         self.ui.label.setFont(self.font)
+        self.t = False
 
     def boitenombrejoueur(self):
         '''cette fonction nous donne le nombre de joueurs via une boite de dialogue '''
@@ -75,13 +77,15 @@ class jeuxUI(QtWidgets.QMainWindow):
                         l1.setPixmap(p)
                         self.ui.gridLayout.addWidget(l1,i,j)
 
+    def vider(self):
+        '''ici on vide le terrain'''
+        for i in range(self.jeux.terrain.taille):
+            for j in range(self.jeux.terrain.taille):
+                self.ui.gridLayout.itemAtPosition(i,j).widget().clear()
+
     def changeJoueurnom(self):
         '''actualise le nom du joueur'''
         self.ui.label.setText(self.jeux.listeJoueur[self.jeux.joueurActuel].nomjoueur)
-
-    def actuMain(self):
-        '''cette fonction permet de faire une actualisation de la main'''
-        pass
     
     def viderLayout_main(self):
         '''cette fonction retire un element de la main du joueur'''
@@ -92,12 +96,17 @@ class jeuxUI(QtWidgets.QMainWindow):
 
     def jouer(self):
         '''cette fonction definie le mode de fonctionnement du jeu, de son initialisation da la fin'''
+        if self.t == True:
+            self.vider()
+
         nj = self.boitenombrejoueur()
         njIA = self.boitenombrejoueurIA()
         self.jeux = Jeux(nj,njIA, 1)#on signale qu'on est en mode graphique avec le 1
         for joueur in self.jeux.listeJoueur:
             nomjoueur, result = QtWidgets.QInputDialog.getText(self, 'NOM Joueur','Entrez le nom du joeur:'+str(joueur.numero + 1))
             joueur.nomjoueur = nomjoueur
+        
+        self.t = True
         self.partie()
 
     def partie(self):
@@ -184,12 +193,15 @@ class jeuxUI(QtWidgets.QMainWindow):
     def boiteVictoire(self):
         """une boite de dialogue qui dit qui est le gagnant"""
         a = QtWidgets.QMessageBox(self)
-        a.setText("victoire du joueur: " + str(self.jeux.gagnant))
+        a.setText("victoire du joueur: " + self.jeux.listeJoueur[self.jeux.gagnant].nomjoueur + str(self.jeux.nbpointgagnant))
         a.show()
         a.exec_()
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+    s = QSound('gnagna.wav')
+    s.setLoops(-1)
+    s.play()
     window = jeuxUI()
     window.show()
     sys.exit(app.exec_())

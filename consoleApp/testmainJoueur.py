@@ -13,8 +13,7 @@ class  Test_MainJoueur(unittest.TestCase):
         m = MainJoueur(1)
         m.ajouter(Domino(2,3),1)
         m.ajouter(Domino(2,3),1)
-        self.assertEqual(len(m), 2)
-        
+        self.assertEqual(len(m), 2)    
         m.ajouter(Domino(2,3),1)
         m.ajouter(Domino(2,3),1)
         self.assertEqual(len(m), 4)
