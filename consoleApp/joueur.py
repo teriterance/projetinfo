@@ -2,6 +2,7 @@ from mainJoueur import MainJoueur
 from domino import Domino
 
 class Joueur():
+    '''Fodop'''
     def __init__(self, numero, nom= ""):
         '''initialisation du joueur, son numero et sa main'''
         self.__numero = numero #identifiant du joueur 

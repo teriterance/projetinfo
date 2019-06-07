@@ -4,7 +4,8 @@ from talon import Talon
 from domino import Domino
 
 class TerrainJeux(list):
-    #tableau de taille 52*52
+    #tableau de taille 14*14
+    '''Fodop'''
     def __init__(self):
         '''fonciton d'initialisation
         on defini, 

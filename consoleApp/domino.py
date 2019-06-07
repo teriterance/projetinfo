@@ -2,7 +2,7 @@ import numpy as np
 import math
 
 class Domino(list):
-    
+    '''Fonen'''
     def __init__(self, num1, num2, color = 0):
         '''initialisation du domino 
         le domino est vu comme trois valeur, deux numerique et une couleur

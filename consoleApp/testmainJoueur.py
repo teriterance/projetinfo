@@ -4,6 +4,7 @@ from mainJoueur import MainJoueur
 from domino import Domino
 
 class  Test_MainJoueur(unittest.TestCase):
+    '''fonen'''
     def test_init(self):
         ma = MainJoueur(1)
         self.assertEqual(len(ma), 0)

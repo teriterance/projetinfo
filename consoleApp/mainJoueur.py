@@ -1,6 +1,7 @@
 from domino import Domino
 
 class MainJoueur(list):
+    '''Fonen'''
     def __init__(self,joueur):
         '''fonction d'initilisation de la main du joueur qui fait le lien entre le joeur et ses dominos'''
         self.__Joueur = joueur

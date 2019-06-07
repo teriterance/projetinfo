@@ -3,8 +3,7 @@ import math
 from domino import Domino
 
 class TestDomino(unittest.TestCase):
-    def test_init(self):
-        pass
+    '''fonen'''
     
     def test_eq(self):
         x = Domino(6,5,0)

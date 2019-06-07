@@ -3,7 +3,7 @@ from terrainjeux import TerrainJeux
 import math 
 '''Notre joueur AI va prendre un coup comme une combinaison X Y de deux valeurs entieres'''
 class JoueurAI(Joueur):
-
+    '''Fodop'''
     def __init__(self, terain, numero):
         '''le terrain sera pris en entree du joueur, et serra mis a jour plustard'''
         super().__init__(self, numero)
@@ -70,4 +70,3 @@ class JoueurAI(Joueur):
                         max_val = val
                         meilleurAngle, meilleurDom = angle , dom
         return meilleurDom, meilleurAngle
-        

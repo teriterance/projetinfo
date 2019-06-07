@@ -4,7 +4,7 @@ from domino import Domino
 import math 
 import random
 class JoueurAI(Joueur):
-
+    '''Fodop'''
     def __init__(self, numero, nom):
         '''le terrain sera pris en entree du joueur, et serra mis a jour plustard'''
         super().__init__( numero, nom)

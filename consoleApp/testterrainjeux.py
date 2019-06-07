@@ -5,6 +5,7 @@ from terrainjeux import TerrainJeux
 from domino  import Domino
 
 class Test_TerrainJeux(unittest.TestCase):
+    '''Fodop'''
     def test_init(self):
         t = TerrainJeux()
         self.assertEqual(len(t), 18)

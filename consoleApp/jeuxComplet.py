@@ -6,6 +6,7 @@ from talon import Talon
 from terrainjeux import TerrainJeux
 
 class Jeux:
+    '''Fodop'''
     def __init__(self, nbj, nbIA = 0, consoleGraphique = 0):
         "cette fonction initilaise le jeu"
         self.numeroTour = 1

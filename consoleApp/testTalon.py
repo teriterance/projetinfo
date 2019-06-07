@@ -3,6 +3,7 @@ import math
 from talon import Talon
 
 class TestTalon(unittest.TestCase):
+    '''fonen'''
     def test_init(self):
         t = Talon()
         self.assertEqual(len(t), t.size)

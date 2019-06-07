@@ -5,6 +5,7 @@ from domino import Domino
 from PyQt5.QtCore import *
 
 class MyQLabel(QLabel):
+    '''fodop'''
     def __init__(self, parent, dom):
         self.dom = dom
         super().__init__(parent)

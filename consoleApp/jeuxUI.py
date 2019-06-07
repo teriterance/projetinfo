@@ -9,7 +9,7 @@ from PyQt5.QtMultimedia import QSound
 from clikable_label import MyQLabel
 
 class jeuxUI(QtWidgets.QMainWindow):
-
+    '''Fodop'''
     def __init__(self, *args, **kargs):
         
         #on fait le constructeur de la fenetre QMAinWindow

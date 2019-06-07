@@ -2,6 +2,7 @@ from random import randint
 from domino import *
 
 class Talon(list):
+    '''Fonen'''
     def __init__(self, size_max = 28):
         '''initialisation du tallon, on defini le type de jeu; aussi on peut decider de metttre un jeux, 7 pour un double six, 
         pour un double neuf'''
