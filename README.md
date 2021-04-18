@@ -10,3 +10,5 @@ This game was created for my first year informatic project.
 ### Run
 cd consoleApp/
 python jeuxUI.py
+
+![Alt text](./GUI_dominos/jeu_.PNG "a title")
